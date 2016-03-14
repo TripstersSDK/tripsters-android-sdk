@@ -8,8 +8,15 @@ import com.tripsters.android.net.NetRequest;
 
 import java.io.IOException;
 
+/**
+ * login的封装task，用于同步调用
+ * @see NetRequest#login
+ */
 public class LoginTask extends AsyncTask<Void, Void, UserInfoResult> {
 
+    /**
+     * login的同步返回调用
+     */
     public interface LoginTaskResult {
         void onTaskResult(UserInfoResult result);
     }

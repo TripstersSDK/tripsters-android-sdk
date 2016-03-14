@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.tripsters.android.util.LogUtils;
 
+/**
+ * gson解析
+ */
 public class ModelFactory {
 
     private static ModelFactory sInstance;

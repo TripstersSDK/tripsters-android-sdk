@@ -33,7 +33,13 @@ import java.io.UnsupportedEncodingException;
  */
 public class NetUtils {
 
+    /**
+     * post文件类型为普通文件
+     */
     public static final String TYPE_FILE_NAME = "TYPE_FILE_NAME";
+    /**
+     * post文件类型为gzip文件
+     */
     public static final String GZIP_FILE_NAME = "GZIP_FILE_NAME";
 
     private static final int TIME_OUT_DELAY = 30000;
@@ -165,7 +171,7 @@ public class NetUtils {
     /**
      * 网络请求（Get方式）
      *
-     * @param context context
+     * @param context 上下文
      * @param url     get方式请求的url
      * @return 返回数据（json结构）
      * @throws IOException
@@ -181,7 +187,7 @@ public class NetUtils {
     /**
      * 网络请求（Post方式）
      *
-     * @param context    context
+     * @param context    上下文
      * @param url        post方式请求的url
      * @param postParams post方式提交的内容
      * @return 返回数据（json结构）

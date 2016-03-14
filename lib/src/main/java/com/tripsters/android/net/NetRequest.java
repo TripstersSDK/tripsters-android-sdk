@@ -61,7 +61,7 @@ public class NetRequest {
     /**
      * 获取支持的国家
      *
-     * @param context context
+     * @param context 上下文
      * @return 国家列表
      * @throws IOException
      */
@@ -82,7 +82,7 @@ public class NetRequest {
     /**
      * 获取支持的城市
      *
-     * @param context     context
+     * @param context     上下文
      * @param countryCode 国家代码
      * @return 城市列表
      * @throws IOException
@@ -105,7 +105,7 @@ public class NetRequest {
     /**
      * 发送问题
      *
-     * @param context context
+     * @param context 上下文
      * @param uid     用户id（必填）
      * @param title   问题的标题，限长60个字（必填）
      * @param picPath 问题图片的流，限制为一张（可选）
@@ -147,7 +147,7 @@ public class NetRequest {
     /**
      * 第几页，从1开始
      *
-     * @param context  context
+     * @param context  上下文
      * @param qid      问题的id
      * @param page     第几页，从1开始
      * @param pagesize 每页的数量，默认为20，最大为50，当返回数量<pagesize，意味着没有更多了
@@ -175,7 +175,7 @@ public class NetRequest {
     /**
      * 获取趣皮士在某一国家下的全部问题
      *
-     * @param context     context
+     * @param context     上下文
      * @param countryName 中文国家名，当country为''空串时，返回所有国家的混合
      * @param page        第几页，从1开始
      * @param pagesize    每页的数量，默认为20，最大为50，当返回数量<pagesize，意味着没有更多了
@@ -204,7 +204,7 @@ public class NetRequest {
     /**
      * 获取当前应用在某一国家下的全部问题
      *
-     * @param context     context
+     * @param context     上下文
      * @param countryName 中文国家名，当country为''空串时，返回所有国家的混合
      * @param page        第几页，从1开始
      * @param pagesize    每页的数量，默认为20，最大为50，当返回数量<pagesize，意味着没有更多了
@@ -233,7 +233,7 @@ public class NetRequest {
     /**
      * 获取问题详情
      *
-     * @param context context
+     * @param context 上下文
      * @param qid     问题的id
      * @return 问题详情
      * @throws IOException
@@ -257,7 +257,7 @@ public class NetRequest {
     /**
      * 回复问题
      *
-     * @param context context
+     * @param context 上下文
      * @param uid     用户id（必填）
      * @param detail  回复详情，限长为255（必填）
      * @param picPath 问题图片的流，限制为一张（可选）
@@ -293,7 +293,7 @@ public class NetRequest {
     /**
      * 追问回复
      *
-     * @param context context
+     * @param context 上下文
      * @param uid     用户id（必填）
      * @param detail  回复详情，限长为255（必填）
      * @param picPath 问题图片的流，限制为一张（可选）
@@ -330,7 +330,7 @@ public class NetRequest {
     /**
      * 第三方用户登陆
      *
-     * @param context  context
+     * @param context  上下文
      * @param appuid   用户在自己平台的uid（必填）
      * @param nickname 昵称（必填）
      * @param avatar   用户头像（必填）
@@ -362,7 +362,7 @@ public class NetRequest {
     /**
      * 获取用户信息
      *
-     * @param context context
+     * @param context 上下文
      * @param uid     用户的id
      * @return 用户信息
      * @throws IOException
@@ -386,7 +386,7 @@ public class NetRequest {
     /**
      * 获取用户的提问
      *
-     * @param context  context
+     * @param context  上下文
      * @param uid      用户的id
      * @param page     第几页，从1开始
      * @param pagesize 每页的数量，默认为20，最大为50，当返回数量<pagesize，意味着没有更多了
@@ -414,7 +414,7 @@ public class NetRequest {
     /**
      * 获取用户的回答
      *
-     * @param context  context
+     * @param context  上下文
      * @param uid      用户的id
      * @param page     第几页，从1开始
      * @param pagesize 每页的数量，默认为20，最大为50，当返回数量<pagesize，意味着没有更多了
@@ -442,7 +442,7 @@ public class NetRequest {
     /**
      * 获取用户收到的回复
      *
-     * @param context  context
+     * @param context  上下文
      * @param uid      用户的id
      * @param page     第几页，从1开始
      * @param pagesize 每页的数量，默认为20，最大为50，当返回数量<pagesize，意味着没有更多了
@@ -470,7 +470,7 @@ public class NetRequest {
     /**
      * 用户push的绑定更新
      *
-     * @param context   context
+     * @param context   上下文
      * @param uid       用户的id
      * @param channelId push的channelId
      * @return 绑定更新结果

@@ -8,8 +8,15 @@ import com.tripsters.android.net.NetRequest;
 
 import java.io.IOException;
 
+/**
+ * sendAnswerById的封装task，用于同步调用
+ * @see NetRequest#sendAnswerById
+ */
 public class SendAnswerTask extends AsyncTask<Void, Void, NetResult> {
 
+    /**
+     * sendAnswerById的同步返回调用
+     */
     public interface SendAnswerTaskResult {
         void onTaskResult(NetResult result);
     }

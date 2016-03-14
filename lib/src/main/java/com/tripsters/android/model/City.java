@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+/**
+ * 城市
+ */
 public class City implements Parcelable {
 
     public static final Creator<City> CREATOR = new Creator<City>() {

@@ -7,6 +7,9 @@ import android.os.Parcel;
 
 import com.tripsters.android.util.LogUtils;
 
+/**
+ * 视频富文本
+ */
 public class RichVideoInfo extends RichInfo {
 
     public static final Creator<RichVideoInfo> CREATOR = new Creator<RichVideoInfo>() {

@@ -7,6 +7,9 @@ import android.os.Parcel;
 
 import com.tripsters.android.util.LogUtils;
 
+/**
+ * 兴趣点富文本
+ */
 public class RichPoiInfo extends RichInfo {
 
     public static final Creator<RichPoiInfo> CREATOR = new Creator<RichPoiInfo>() {

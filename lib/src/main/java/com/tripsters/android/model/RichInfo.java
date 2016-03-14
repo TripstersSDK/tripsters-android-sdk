@@ -13,6 +13,9 @@ import android.text.TextUtils;
 
 import com.tripsters.android.util.LogUtils;
 
+/**
+ * 推荐富文本
+ */
 public abstract class RichInfo implements Parcelable {
 
     public static final Creator<RichInfo> CREATOR = new Creator<RichInfo>() {

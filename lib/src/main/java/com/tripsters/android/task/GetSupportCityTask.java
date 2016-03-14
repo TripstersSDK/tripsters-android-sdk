@@ -9,8 +9,15 @@ import com.tripsters.android.util.LogUtils;
 
 import java.io.IOException;
 
+/**
+ * getSupportCity的封装task，用于同步调用
+ * @see NetRequest#getSupportCity
+ */
 public class GetSupportCityTask extends AsyncTask<Void, Void, CityList> {
 
+    /**
+     * getSupportCity的同步返回调用
+     */
     public interface GetSupportCityTaskResult {
         void onTaskResult(CityList result);
     }

@@ -1,5 +1,8 @@
 package com.tripsters.android.model;
 
+/**
+ * 性别
+ */
 public enum Gender {
     MALE("m"), FEMALE("f"), UNKNOWN("n");
 

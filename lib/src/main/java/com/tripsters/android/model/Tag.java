@@ -3,6 +3,9 @@ package com.tripsters.android.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 标签
+ */
 public class Tag implements Parcelable {
 
     public static final Creator<Tag> CREATOR = new Creator<Tag>() {

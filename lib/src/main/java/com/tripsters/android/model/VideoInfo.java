@@ -3,6 +3,9 @@ package com.tripsters.android.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 视频
+ */
 public class VideoInfo implements Parcelable {
 
     public static final Creator<VideoInfo> CREATOR = new Creator<VideoInfo>() {

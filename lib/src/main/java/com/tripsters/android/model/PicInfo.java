@@ -3,6 +3,9 @@ package com.tripsters.android.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 图片
+ */
 public class PicInfo implements Parcelable {
     public static enum PicType {
         ORI, SMALL, MIDDLE, BIG;

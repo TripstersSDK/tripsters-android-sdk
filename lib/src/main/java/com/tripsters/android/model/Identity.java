@@ -1,5 +1,8 @@
 package com.tripsters.android.model;
 
+/**
+ * 身份标识
+ */
 public enum Identity {
     NONE(-1), OTHER(0), NORMAL(1), COUNTRY_DAREN(2), NORMAL_DAREN(4);
 

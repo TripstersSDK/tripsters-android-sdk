@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+/**
+ * 兴趣点
+ */
 public class Poi implements Parcelable {
 
     public static final Creator<Poi> CREATOR = new Creator<Poi>() {

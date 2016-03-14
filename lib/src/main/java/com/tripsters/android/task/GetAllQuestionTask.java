@@ -8,8 +8,15 @@ import com.tripsters.android.net.NetRequest;
 
 import java.io.IOException;
 
+/**
+ * getAllQuestion的封装task，用于同步调用
+ * @see NetRequest#getAllQuestion
+ */
 public class GetAllQuestionTask extends AsyncTask<Void, Void, QuestionList> {
 
+    /**
+     * getAllQuestion的同步返回调用
+     */
     public interface GetAllQuestionTaskResult {
         void onTaskResult(QuestionList result);
     }

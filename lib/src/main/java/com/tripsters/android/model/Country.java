@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * 国家
+ */
 public class Country implements Parcelable {
 
     public static final Creator<Country> CREATOR = new Creator<Country>() {

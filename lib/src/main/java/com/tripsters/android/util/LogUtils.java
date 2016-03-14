@@ -2,6 +2,9 @@ package com.tripsters.android.util;
 
 import android.util.Log;
 
+/**
+ * 日志
+ */
 public class LogUtils {
 
     private final static String TAG = "tripsters";

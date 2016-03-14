@@ -1,7 +1,7 @@
 package com.tripsters.android.model;
 
 /**
- * 趣皮士网络接口返回的父类
+ * 趣皮士服务器返回的父类
  * <p>
  * 返回值中的errorCode和对应的errmsg，解释如下：
  * <table border="1">

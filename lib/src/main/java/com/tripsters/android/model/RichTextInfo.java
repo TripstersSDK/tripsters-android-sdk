@@ -7,6 +7,9 @@ import android.os.Parcel;
 
 import com.tripsters.android.util.LogUtils;
 
+/**
+ * 文本富文本
+ */
 public class RichTextInfo extends RichInfo {
 
     public static final Creator<RichTextInfo> CREATOR = new Creator<RichTextInfo>() {

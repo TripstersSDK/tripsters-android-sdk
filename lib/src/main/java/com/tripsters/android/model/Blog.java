@@ -9,6 +9,9 @@ import android.text.TextUtils;
 
 import com.tripsters.android.model.RichInfo.Type;
 
+/**
+ * 推荐
+ */
 public class Blog implements Parcelable {
 
     public static final Creator<Blog> CREATOR = new Creator<Blog>() {

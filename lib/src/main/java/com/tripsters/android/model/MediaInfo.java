@@ -5,6 +5,9 @@ import java.util.UUID;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 多媒体
+ */
 public class MediaInfo implements Parcelable, Comparable<MediaInfo> {
 
     public static final Creator<MediaInfo> CREATOR = new Creator<MediaInfo>() {

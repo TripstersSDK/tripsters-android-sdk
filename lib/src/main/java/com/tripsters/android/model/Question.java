@@ -7,6 +7,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+/**
+ * 问题
+ */
 public class Question implements Parcelable {
 
     public static final Creator<Question> CREATOR = new Creator<Question>() {

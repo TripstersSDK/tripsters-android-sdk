@@ -8,8 +8,15 @@ import com.tripsters.android.net.NetRequest;
 
 import java.io.IOException;
 
+/**
+ * getUserAnswer的封装task，用于同步调用
+ * @see NetRequest#getUserAnswer
+ */
 public class GetUserAnswerTask extends AsyncTask<Void, Void, AnswerList> {
 
+    /**
+     * getUserAnswer的同步返回调用
+     */
     public interface GetUserAnswerTaskResult {
         void onTaskResult(AnswerList result);
     }

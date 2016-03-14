@@ -6,6 +6,9 @@ import android.text.TextUtils;
 
 import com.tripsters.android.util.LogUtils;
 
+/**
+ * 用户信息
+ */
 public class UserInfo implements Parcelable, Cloneable {
 
     public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {

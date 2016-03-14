@@ -6,6 +6,9 @@ import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 问题
+ */
 public class Answer implements Parcelable {
 
     public static final Creator<Answer> CREATOR = new Creator<Answer>() {

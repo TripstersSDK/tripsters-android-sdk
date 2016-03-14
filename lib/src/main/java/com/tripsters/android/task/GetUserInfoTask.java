@@ -8,8 +8,15 @@ import com.tripsters.android.net.NetRequest;
 
 import java.io.IOException;
 
+/**
+ * getUserInfo的封装task，用于同步调用
+ * @see NetRequest#getUserInfo
+ */
 public class GetUserInfoTask extends AsyncTask<Void, Void, UserInfoResult> {
 
+    /**
+     * getUserInfo的同步返回调用
+     */
     public interface GetUserInfoTaskResult {
         void onTaskResult(UserInfoResult result);
     }

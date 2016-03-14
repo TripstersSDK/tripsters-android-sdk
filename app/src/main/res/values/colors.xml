@@ -1,0 +1,19 @@
+<resources>
+    <color name="tb_dark_grey">#464f54</color>
+    <color name="tb_light_grey">#88939a</color>
+    <color name="tb_orange">#fcb43f</color>
+    <color name="tb_blue">#2ea7e0</color>
+    <color name="tb_red">#f2445d</color>
+    <color name="tb_divider_grey">#eaeeef</color>
+    <color name="tb_bg_grey">#f1f1f1</color>
+    <color name="tb_bg_white">#f7f9f9</color>
+
+    <color name="bg_default_1">#fae2bd</color>
+    <color name="bg_default_2">#abdab3</color>
+    <color name="bg_default_3">#b8cbe4</color>
+    <color name="bg_default_4">#e4cad5</color>
+    <color name="bg_default_5">#d6e2c8</color>
+    <color name="bg_default_6">#998bb5</color>
+    <color name="bg_default_7">#dedddd</color>
+    <color name="bg_default_8">#fbc8f1</color>
+</resources>

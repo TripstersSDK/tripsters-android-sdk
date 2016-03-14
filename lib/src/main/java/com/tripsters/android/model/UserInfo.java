@@ -43,7 +43,7 @@ public class UserInfo implements Parcelable, Cloneable {
             userInfo.occupation = source.readString();
             userInfo.trip = source.readString();
             userInfo.black_tag = source.readInt();
-            userInfo.from = source.readString();
+            userInfo.appid = source.readString();
 
             return userInfo;
         }
@@ -77,7 +77,7 @@ public class UserInfo implements Parcelable, Cloneable {
         dest.writeString(occupation);
         dest.writeString(trip);
         dest.writeInt(black_tag);
-        dest.writeString(from);
+        dest.writeString(appid);
     }
 
     private String id;
@@ -100,9 +100,8 @@ public class UserInfo implements Parcelable, Cloneable {
     private String nation;
     private String occupation;
     private String trip;
-    private int black_tag; // 代表自己是否是系统黑名单用户，不需要存数据库
-
-    private String from;
+    private int black_tag;
+    private String appid;
 
     public String getId() {
         if (id == null) {
@@ -328,16 +327,16 @@ public class UserInfo implements Parcelable, Cloneable {
         this.black_tag = blackTag;
     }
 
-    public String getFrom() {
-        if (from == null) {
+    public String getAppid() {
+        if (appid == null) {
             return "";
         }
 
-        return from;
+        return appid;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setAppid(String from) {
+        this.appid = from;
     }
 
     public UserInfo copy() {

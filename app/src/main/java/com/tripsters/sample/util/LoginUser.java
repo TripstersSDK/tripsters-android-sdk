@@ -225,7 +225,7 @@ public class LoginUser {
             editorVersion.putString(UserKey.KEY_TRIP, userInfo.getTrip());
             editorVersion.putInt(KEY_BLACK_TAG, userInfo.getBlackTag());
 
-            editorVersion.putString(UserKey.KEY_FROM, userInfo.getFrom());
+            editorVersion.putString(UserKey.KEY_FROM, userInfo.getAppid());
         }
 
         editorVersion.commit();
@@ -257,7 +257,7 @@ public class LoginUser {
         userInfo.setTrip(versionPrefs.getString(UserKey.KEY_TRIP, ""));
         userInfo.setBlackTag(versionPrefs.getInt(KEY_BLACK_TAG, 0));
 
-        userInfo.setFrom(versionPrefs.getString(UserKey.KEY_FROM, ""));
+        userInfo.setAppid(versionPrefs.getString(UserKey.KEY_FROM, ""));
 
         if (TextUtils.isEmpty(userInfo.getId())) {
             return null;

@@ -54,7 +54,7 @@ public class PortraitTopView extends RelativeLayout {
     public void update(UserInfo userInfo, long created) {
         mUserInfo = userInfo;
 
-        ImageUtils.setAvata(getContext(), mPortraitPv, mUserInfo);
+        ImageUtils.setAvata(mPortraitPv, mUserInfo);
         mNickTv.setText(mUserInfo == null ? "" : mUserInfo.getNickname());
         if (mVerifyVisible) {
             mVerifyTv.setVisibility(View.VISIBLE);

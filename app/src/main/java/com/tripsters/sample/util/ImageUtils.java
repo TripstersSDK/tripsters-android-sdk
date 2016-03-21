@@ -10,13 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.tripsters.android.model.Gender;
 import com.tripsters.android.model.Identity;
 import com.tripsters.android.model.MediaInfo;
 import com.tripsters.android.model.PicInfo;
 import com.tripsters.android.model.UserInfo;
 import com.tripsters.sample.R;
+import com.tripsters.sample.view.GlideCircleTransform;
 import com.tripsters.sample.view.PortraitView;
 
 import java.io.File;
@@ -55,8 +56,11 @@ public class ImageUtils {
         if (pic == null || TextUtils.isEmpty(pic.getPic())) {
             imageView.setImageResource(defaultResId);
         } else {
-            Picasso.with(context).load(pic.getPic()).placeholder(defaultResId)
-                    .resize(rect.width(), rect.height()).centerCrop().into(imageView);
+            Glide.with(context)
+                    .load(pic.getPic())
+                    .placeholder(defaultResId)
+                    .override(rect.width(), rect.height()).centerCrop()
+                    .into(imageView);
         }
     }
 
@@ -87,9 +91,12 @@ public class ImageUtils {
             imageView.setVisibility(View.VISIBLE);
 
             if (mediaInfo.getType() == MediaInfo.PIC) {
-                Picasso.with(context).load(new File(mediaInfo.getPath()))
-                        .placeholder(placeholderResId).resize(rect.width(), rect.height())
-                        .centerCrop().into(imageView);
+                Glide.with(context)
+                        .load(new File(mediaInfo.getPath()))
+                        .placeholder(placeholderResId)
+                        .override(rect.width(), rect.height())
+                        .centerCrop()
+                        .into(imageView);
             } else {
                 imageView.setImageBitmap(getVideoFrame(mediaInfo.getPath()));
             }
@@ -124,8 +131,12 @@ public class ImageUtils {
         if (TextUtils.isEmpty(url)) {
             imageView.setImageResource(BG_DEFAULTS[position % BG_DEFAULTS.length]);
         } else {
-            Picasso.with(context).load(url).placeholder(BG_DEFAULTS[position % BG_DEFAULTS.length])
-                    .resize(params.width, params.height).centerCrop().into(imageView);
+            Glide.with(context)
+                    .load(url)
+                    .placeholder(BG_DEFAULTS[position % BG_DEFAULTS.length])
+                    .override(params.width, params.height)
+                    .centerCrop()
+                    .into(imageView);
         }
     }
 
@@ -175,8 +186,12 @@ public class ImageUtils {
             imageView.setLayoutParams(params);
             imageView.setScaleType(ImageView.ScaleType.FIT_START);
 
-            Picasso.with(context).load(pic.getPic()).placeholder(R.color.tb_bg_grey)
-                    .resize(rect.width(), rect.height()).centerCrop().into(imageView);
+            Glide.with(context)
+                    .load(pic.getPic())
+                    .placeholder(R.color.tb_bg_grey)
+                    .override(rect.width(), rect.height())
+                    .centerCrop()
+                    .into(imageView);
         }
     }
 
@@ -186,17 +201,38 @@ public class ImageUtils {
      * @param context   上下文
      * @param imageview 头像ImageView
      * @param url       头像Url
+     * @param circle    是否圆角
      */
-    public static void setAvata(Context context, ImageView imageview, String url, boolean female) {
+    public static void setAvata(Context context, ImageView imageview, String url, boolean female,
+                                boolean circle) {
         if (TextUtils.isEmpty(url)) {
-            imageview.setImageResource(female ? R.drawable.portrait_default_female
-                    : R.drawable.portrait_default_male);
+            if (circle) {
+                Glide.with(context)
+                        .load(female ? R.drawable.portrait_default_female
+                                : R.drawable.portrait_default_male)
+                        .transform(new GlideCircleTransform(context))
+                        .into(imageview);
+            } else {
+                Glide.with(context)
+                        .load(female ? R.drawable.portrait_default_female
+                                : R.drawable.portrait_default_male)
+                        .into(imageview);
+            }
         } else {
-            Picasso.with(context)
-                    .load(url)
-                    .placeholder(
-                            female ? R.drawable.portrait_default_female
-                                    : R.drawable.portrait_default_male).into(imageview);
+            if (circle) {
+                Glide.with(context)
+                        .load(url)
+                        .transform(new GlideCircleTransform(context))
+                        .placeholder(female ? R.drawable.portrait_default_female
+                                : R.drawable.portrait_default_male)
+                        .into(imageview);
+            } else {
+                Glide.with(context)
+                        .load(url)
+                        .placeholder(female ? R.drawable.portrait_default_female
+                                : R.drawable.portrait_default_male)
+                        .into(imageview);
+            }
         }
     }
 
@@ -206,24 +242,47 @@ public class ImageUtils {
      * @param context   上下文
      * @param imageview 头像ImageView
      * @param url       头像Url
+     * @param circle    是否圆角
      */
-    public static void setAvata(Context context, ImageView imageview, String url, int defaultResId) {
+    public static void setAvata(Context context, ImageView imageview, String url, int defaultResId,
+                                boolean circle) {
         if (TextUtils.isEmpty(url)) {
-            imageview.setImageResource(defaultResId);
+            if (circle) {
+                Glide.with(context)
+                        .load(defaultResId)
+                        .transform(new GlideCircleTransform(context))
+                        .into(imageview);
+            } else {
+                Glide.with(context)
+                        .load(defaultResId)
+                        .into(imageview);
+            }
         } else {
-            Picasso.with(context).load(url).placeholder(defaultResId).into(imageview);
+            if (circle) {
+                Glide.with(context)
+                        .load(url)
+                        .transform(new GlideCircleTransform(context))
+                        .placeholder(defaultResId)
+                        .into(imageview);
+            } else {
+                Glide.with(context)
+                        .load(url)
+                        .placeholder(defaultResId)
+                        .into(imageview);
+            }
         }
     }
 
     /**
      * 显示头像
      *
-     * @param context      上下文
      * @param portraitView 头像View
      * @param url          头像Url
+     * @param gender       性别
+     * @param identity     身份标识
      */
-    public static void setAvata(Context context, PortraitView portraitView, String url,
-                                Gender gender, Identity identity) {
+    public static void setAvata(PortraitView portraitView, String url, Gender gender,
+                                Identity identity) {
         if (TextUtils.isEmpty(url)) {
             portraitView.setDeault(gender == Gender.FEMALE);
         } else {
@@ -234,12 +293,13 @@ public class ImageUtils {
     /**
      * 显示头像
      *
-     * @param context      上下文
      * @param portraitView 头像View
      * @param url          头像Url
+     * @param defaultResId 默认显示
+     * @param identity     身份标识
      */
-    public static void setAvata(Context context, PortraitView portraitView, String url,
-                                Identity identity, int defaultResId) {
+    public static void setAvata(PortraitView portraitView, String url, int defaultResId,
+                                Identity identity) {
         if (TextUtils.isEmpty(url)) {
             portraitView.setDeault(defaultResId);
         } else {
@@ -250,11 +310,10 @@ public class ImageUtils {
     /**
      * 显示头像
      *
-     * @param context      上下文
      * @param portraitView 头像View
      * @param userInfo     用户信息结构
      */
-    public static void setAvata(Context context, PortraitView portraitView, UserInfo userInfo) {
+    public static void setAvata(PortraitView portraitView, UserInfo userInfo) {
         if (userInfo == null || TextUtils.isEmpty(userInfo.getAvatar())) {
             portraitView.setDeault(userInfo == null || userInfo.getGender() == Gender.FEMALE);
         } else {

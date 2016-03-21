@@ -95,7 +95,7 @@ public class QuestionItemView extends LinearLayout {
         if (mPortraitVisible) {
             mPvPortrait.setVisibility(View.VISIBLE);
 
-            ImageUtils.setAvata(getContext(), mPvPortrait, mQuestion.getUserInfo());
+            ImageUtils.setAvata(mPvPortrait, mQuestion.getUserInfo());
         } else {
             mPvPortrait.setVisibility(View.GONE);
         }

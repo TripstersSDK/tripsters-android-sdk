@@ -166,7 +166,7 @@ public class ProfileHeaderView extends RelativeLayout {
 
         mNameTv.setVisibility(View.VISIBLE);
         mNameTv.setText(mUserInfo.getNickname());
-        ImageUtils.setAvata(getContext(), mPortraitPv, mUserInfo);
+        ImageUtils.setAvata(mPortraitPv, mUserInfo);
 
         mLocationTv.setVisibility(View.VISIBLE);
         if (TextUtils.isEmpty(mUserInfo.getLocation())) {

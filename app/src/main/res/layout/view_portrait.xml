@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tripsters="http://schemas.android.com/apk/res-auto" >
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <com.tripsters.sample.view.RoundedImageView
+    <ImageView
         android:id="@+id/iv_portrait"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tripsters:round_background="true" />
+        android:scaleType="centerCrop" />
 
     <ImageView
         android:id="@+id/iv_portrait_local"

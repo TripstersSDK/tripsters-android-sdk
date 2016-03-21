@@ -24,10 +24,11 @@ public class PortraitView extends FrameLayout {
         final int nativeInt;
     }
 
-    private RoundedImageView mPortraitIv;
+    private ImageView mPortraitIv;
     private ImageView mPortraitLocalIv;
 
     private Type mType;
+    private boolean mCircle;
 
     public PortraitView(Context context) {
         super(context);
@@ -51,12 +52,6 @@ public class PortraitView extends FrameLayout {
         } else {
             setType(Type.ITEM);
         }
-        int borderWidth = a.getDimensionPixelSize(R.styleable.PortraitView_border_width, -1);
-        if (borderWidth < 0) {
-            borderWidth = RoundedImageView.DEFAULT_BORDER;
-        }
-        mPortraitIv.setBorderWidth(borderWidth);
-        mPortraitIv.setBorderColor(getResources().getColor(android.R.color.white));
 
         a.recycle();
     }
@@ -97,28 +92,25 @@ public class PortraitView extends FrameLayout {
         portraitParams.bottomMargin = portraitMargin;
         mPortraitIv.setLayoutParams(portraitParams);
         if (type == Type.PROFILE || type == Type.ORDER) {
-            mPortraitIv.setCornerRadius(portraitSize / 2);
+            mCircle = true;
         }
     }
 
     private void init() {
         View view = View.inflate(getContext(), R.layout.view_portrait, this);
-        mPortraitIv = (RoundedImageView) view.findViewById(R.id.iv_portrait);
+        mPortraitIv = (ImageView) view.findViewById(R.id.iv_portrait);
         mPortraitLocalIv = (ImageView) view.findViewById(R.id.iv_portrait_local);
     }
 
     public void setDeault(boolean female) {
-        mPortraitIv.setImageResource(female ? R.drawable.portrait_default_female
-                : R.drawable.portrait_default_male);
-        mPortraitLocalIv.setVisibility(View.GONE);
+        setPortrait("", female, Identity.NONE);
     }
 
     public void setDeault(int defaultResId) {
-        mPortraitIv.setImageResource(defaultResId);
-        mPortraitLocalIv.setVisibility(View.GONE);
+        setPortrait("", defaultResId, Identity.NONE);
     }
 
-    public void setPortraitLocal(String url, Identity identity) {
+    public void setPortraitLocal(Identity identity) {
         switch (mType) {
             case EDIT:
                 mPortraitLocalIv.setVisibility(View.GONE);
@@ -154,15 +146,15 @@ public class PortraitView extends FrameLayout {
     }
 
     public void setPortrait(String url, boolean female, Identity identity) {
-        ImageUtils.setAvata(getContext(), mPortraitIv, url, female);
+        ImageUtils.setAvata(getContext(), mPortraitIv, url, female, mCircle);
 
-        setPortraitLocal(url, identity);
+        setPortraitLocal(identity);
     }
 
     public void setPortrait(String url, int defaultResId, Identity identity) {
-        ImageUtils.setAvata(getContext(), mPortraitIv, url, defaultResId);
+        ImageUtils.setAvata(getContext(), mPortraitIv, url, defaultResId, mCircle);
 
-        setPortraitLocal(url, identity);
+        setPortraitLocal(identity);
     }
 
     public void setPortrait(Bitmap bitmap) {

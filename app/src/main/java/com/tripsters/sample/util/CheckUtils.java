@@ -2,8 +2,8 @@ package com.tripsters.sample.util;
 
 import android.text.TextUtils;
 
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.sample.R;
-import com.tripsters.sample.TripstersApplication;
 
 public class CheckUtils {
 

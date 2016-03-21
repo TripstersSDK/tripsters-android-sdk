@@ -12,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.LinearLayout;
 
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.model.AnswerList;
 import com.tripsters.android.model.Question;
 import com.tripsters.android.model.QuestionResult;

@@ -5,13 +5,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
+import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.info.LoginUser;
+import com.tripsters.android.info.Push;
 import com.tripsters.android.model.UserInfoResult;
 import com.tripsters.android.task.LoginTask;
 import com.tripsters.android.task.LoginTask.LoginTaskResult;
 import com.tripsters.sample.util.CheckUtils;
 import com.tripsters.sample.util.ErrorToast;
 import com.tripsters.sample.util.IntentUtils;
-import com.tripsters.sample.util.LoginUser;
 import com.tripsters.sample.view.TitleBar;
 import com.tripsters.sample.view.TitleBar.LeftType;
 import com.tripsters.sample.view.TitleBar.RightType;
@@ -69,14 +71,14 @@ public class LoginActivity extends BaseActivity {
                             dismissProgress();
 
                             if (ErrorToast.getInstance().checkNetResult(result)) {
-                                LoginUser.setUser(result.getUserInfo());
+                                LoginUser.getInstance().setUser(result.getUserInfo());
 
                                 IntentUtils.sendLoginBroadcast(TripstersApplication.mContext,
-                                        LoginUser.getId());
+                                        LoginUser.getInstance().getId());
 
-                                if (LoginUser.isBind()) {
-                                    TripstersPushMessageReceiver.updateUserInfo(LoginUser.getId(),
-                                            LoginUser.getChannelId());
+                                if (Push.getInstance().isBind()) {
+                                    TripstersPushMessageReceiver.updateUserInfo(LoginUser.getInstance().getId(),
+                                            Push.getInstance().getChannelId());
                                 }
 
                                 finish();

@@ -7,14 +7,16 @@ import android.text.TextUtils;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.baidu.android.pushservice.PushMessageReceiver;
+import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.info.LoginUser;
+import com.tripsters.android.info.MessageUnread;
+import com.tripsters.android.info.Push;
 import com.tripsters.android.model.ModelFactory;
 import com.tripsters.android.model.NetResult;
 import com.tripsters.android.task.UpdateUserInfoTask;
 import com.tripsters.android.util.LogUtils;
 import com.tripsters.sample.model.PushMessage;
 import com.tripsters.sample.util.Constants;
-import com.tripsters.sample.util.LoginUser;
-import com.tripsters.sample.util.MessageUnread;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ import java.util.List;
  *30604 - Quota Use Up Payment Required
  *30605 -Data Required Not Found
  *30606 - Request Time Expires Timeout
- *30607 - Channel Token Timeout
+ *30607 - Push Token Timeout
  *30608 - Bind Relation Not Found
  *30609 - Bind Number Too Many
 
@@ -74,12 +76,12 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
 
         // 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
         if (errorCode == 0) {
-            if (LoginUser.isLogin()) {
-                if (!LoginUser.isBind()) {
-                    updateUserInfo(LoginUser.getId(), channelId);
+            if (LoginUser.getInstance().isLogin()) {
+                if (!Push.getInstance().isBind()) {
+                    updateUserInfo(LoginUser.getInstance().getId(), channelId);
                 }
             } else {
-                LoginUser.setChannelId(channelId);
+                Push.getInstance().setChannelId(channelId);
             }
         }
     }
@@ -98,7 +100,7 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
 
         // 解绑定成功，设置未绑定flag，
         if (errorCode == 0) {
-            LoginUser.clearChannelId();
+            Push.getInstance().clearChannelId();
         }
     }
 
@@ -258,7 +260,7 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
                         @Override
                         public void onTaskResult(NetResult result) {
                             if (result != null && result.isSuccessful()) {
-                                LoginUser.setChannelId(channelId);
+                                Push.getInstance().setChannelId(channelId);
                             }
                         }
                     }).execute();
@@ -269,11 +271,11 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
         LogUtils.logd(TAG, "updateContent");
         switch (content.getType()) {
             case RECEIVED_ANSWER:
-                if (LoginUser.isLogin(context)) {
+                if (LoginUser.getInstance().isLogin()) {
                     if (arrived) {
-                        MessageUnread.getInstance(LoginUser.getUser(context)).addAnswerNum();
+                        MessageUnread.getInstance(LoginUser.getInstance().getUser()).addAnswerNum();
                     } else {
-                        MessageUnread.getInstance(LoginUser.getUser(context)).reduceAnswerNum();
+                        MessageUnread.getInstance(LoginUser.getInstance().getUser()).reduceAnswerNum();
 
                         onReceivedQuestionClicked(context);
                     }

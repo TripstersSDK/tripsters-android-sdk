@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.tripsters.android.info.LoginUser;
 import com.tripsters.android.model.Question;
 import com.tripsters.android.model.UserInfo;
 import com.tripsters.sample.LoginActivity;
@@ -86,7 +87,7 @@ public class IntentUtils {
      * @param uid
      */
     public static void sendLoginBroadcast(Context context, String uid) {
-        if (!LoginUser.isLogin(context) || !LoginUser.getId().equals(uid)) {
+        if (!LoginUser.getInstance().isLogin() || !LoginUser.getInstance().getId().equals(uid)) {
             return;
         }
 
@@ -103,7 +104,7 @@ public class IntentUtils {
      * @param uid
      */
     public static void sendQuestionBroadcast(Context context, String uid) {
-        if (!LoginUser.isLogin(context) || !LoginUser.getId().equals(uid)) {
+        if (!LoginUser.getInstance().isLogin() || !LoginUser.getInstance().getId().equals(uid)) {
             return;
         }
 
@@ -121,7 +122,7 @@ public class IntentUtils {
      * @param quetionId
      */
     public static void sendAnswerBroadcast(Context context, String uid, String quetionId) {
-        if (!LoginUser.isLogin(context) || !LoginUser.getId().equals(uid)) {
+        if (!LoginUser.getInstance().isLogin() || !LoginUser.getInstance().getId().equals(uid)) {
             return;
         }
 

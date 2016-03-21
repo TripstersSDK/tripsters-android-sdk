@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.model.City;
 import com.tripsters.android.model.CityList;
 import com.tripsters.android.model.Country;

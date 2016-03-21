@@ -15,12 +15,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tripsters.android.info.LoginUser;
+import com.tripsters.android.info.SelectCountry;
 import com.tripsters.android.model.MediaInfo;
 import com.tripsters.sample.composer.BaseComposer;
 import com.tripsters.sample.composer.ComposerFactory;
 import com.tripsters.sample.util.Constants;
 import com.tripsters.sample.util.IntentUtils;
-import com.tripsters.sample.util.LoginUser;
 import com.tripsters.sample.util.Utils;
 import com.tripsters.sample.view.SendLocationView;
 import com.tripsters.sample.view.SendLocationView.OnLocationUpdateListener;
@@ -81,8 +82,8 @@ public class SendActivity extends BaseActivity {
         setContentView(R.layout.activity_send);
 
         mComposer = ComposerFactory.create(this, getIntent());
-        mComposer.setUid(LoginUser.getId());
-        mComposer.setCountry(LoginUser.getCountry(this));
+        mComposer.setUid(LoginUser.getInstance().getId());
+        mComposer.setCountry(SelectCountry.getInstance().getCountry());
 
         mInputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -180,9 +181,9 @@ public class SendActivity extends BaseActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (Constants.Action.LOGIN_SUCCESS.equals(intent.getAction())) {
-                    mComposer.setUid(LoginUser.getId());
+                    mComposer.setUid(LoginUser.getInstance().getId());
                 } else if (Constants.Action.LOGOUT_SUCCESS.equals(intent.getAction())) {
-                    mComposer.setUid(LoginUser.getId());
+                    mComposer.setUid(LoginUser.getInstance().getId());
                 }
             }
         };

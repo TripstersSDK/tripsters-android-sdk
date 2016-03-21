@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.info.LoginUser;
 import com.tripsters.android.model.Blog;
 import com.tripsters.android.model.City;
 import com.tripsters.android.model.Country;
@@ -14,11 +16,9 @@ import com.tripsters.android.model.Question;
 import com.tripsters.android.model.Tag;
 import com.tripsters.sample.BaseActivity;
 import com.tripsters.sample.R;
-import com.tripsters.sample.TripstersApplication;
 import com.tripsters.sample.composer.center.ComposerCenter;
 import com.tripsters.sample.util.ErrorToast;
 import com.tripsters.sample.util.IntentUtils;
-import com.tripsters.sample.util.LoginUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -316,7 +316,7 @@ public abstract class BaseComposer implements Parcelable, Comparable<BaseCompose
     }
 
     protected boolean checkValid(Context context) {
-        if (!LoginUser.isLogin(context)) {
+        if (!LoginUser.getInstance().isLogin()) {
             ErrorToast.getInstance().showErrorMessage(R.string.pre_login_str);
             IntentUtils.login(context);
 

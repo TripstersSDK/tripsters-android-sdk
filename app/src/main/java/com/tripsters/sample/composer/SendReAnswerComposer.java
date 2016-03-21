@@ -3,13 +3,13 @@ package com.tripsters.sample.composer;
 import android.content.Context;
 import android.content.Intent;
 
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.model.Answer;
 import com.tripsters.android.model.NetResult;
 import com.tripsters.android.model.Question;
 import com.tripsters.android.task.SendReAnswerTask;
 import com.tripsters.sample.BaseActivity;
 import com.tripsters.sample.R;
-import com.tripsters.sample.TripstersApplication;
 import com.tripsters.sample.util.CheckUtils;
 import com.tripsters.sample.util.Constants;
 import com.tripsters.sample.util.ErrorToast;

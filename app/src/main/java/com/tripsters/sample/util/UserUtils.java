@@ -3,6 +3,7 @@ package com.tripsters.sample.util;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.tripsters.android.info.LoginUser;
 import com.tripsters.android.model.City;
 import com.tripsters.android.model.Gender;
 import com.tripsters.android.model.Identity;
@@ -92,7 +93,7 @@ public class UserUtils {
     }
 
     public static boolean isMyself(String uid) {
-        return !TextUtils.isEmpty(uid) && uid.equals(LoginUser.getId());
+        return !TextUtils.isEmpty(uid) && uid.equals(LoginUser.getInstance().getId());
     }
 
     public static String getTags(Question question) {

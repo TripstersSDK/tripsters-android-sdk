@@ -15,11 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import com.tripsters.android.info.SelectCountry;
 import com.tripsters.sample.CountryRecommandActivity;
 import com.tripsters.sample.R;
 import com.tripsters.sample.SendActivity;
 import com.tripsters.sample.util.Constants;
-import com.tripsters.sample.util.LoginUser;
 import com.tripsters.sample.view.TitleBar;
 import com.tripsters.sample.view.TitleBar.LeftType;
 import com.tripsters.sample.view.TitleBar.RightType;
@@ -96,8 +96,8 @@ public class MainFragment extends BaseFragment {
         mTitleBar.initTitleBar(LeftType.NONE, R.string.title_all, R.string.title_app,
                 RightType.ICON_SEND_QUESTION);
         mTitleBar.setLeftArrowVisible(true);
-        if (LoginUser.getCountry(getActivity()) != null) {
-            mTitleBar.setLeftText(LoginUser.getCountry(getActivity()).getCountryNameCn());
+        if (SelectCountry.getInstance().getCountry() != null) {
+            mTitleBar.setLeftText(SelectCountry.getInstance().getCountry().getCountryNameCn());
         }
         mTitleBar.setTitleLeftClick(new OnClickListener() {
 
@@ -144,7 +144,7 @@ public class MainFragment extends BaseFragment {
             public void onReceive(Context context, Intent intent) {
                 if (Constants.Action.CHANGE_LOCATION.equals(intent.getAction())) {
                     String name1 = mTitleBar.getLeftText();
-                    String name2 = LoginUser.getCountry(getActivity()).getCountryNameCn();
+                    String name2 = SelectCountry.getInstance().getCountry().getCountryNameCn();
 
                     if (!name1.equals(name2)) {
                         mTitleBar.setLeftText(name2);

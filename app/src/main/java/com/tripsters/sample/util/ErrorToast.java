@@ -5,11 +5,11 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.model.ListNetResult;
 import com.tripsters.android.model.NetResult;
 import com.tripsters.android.model.UserInfoResult;
 import com.tripsters.sample.R;
-import com.tripsters.sample.TripstersApplication;
 import com.tripsters.sample.view.ProfileView;
 import com.tripsters.sample.view.TListView;
 

@@ -14,5 +14,4 @@ public class DebugConfig {
         sNetDebug = DEBUG;
         sLogDebug = DEBUG;
     }
-
 }

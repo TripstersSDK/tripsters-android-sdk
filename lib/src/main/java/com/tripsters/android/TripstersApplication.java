@@ -1,4 +1,4 @@
-package com.tripsters.sample;
+package com.tripsters.android;
 
 import android.app.Application;
 import android.content.Context;
@@ -7,10 +7,7 @@ public class TripstersApplication extends Application {
 
     public static Context mContext;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        mContext = getApplicationContext();
+    public static void init(Application application) {
+        mContext = application.getApplicationContext();
     }
 }

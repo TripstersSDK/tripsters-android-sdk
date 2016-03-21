@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.info.SelectCountry;
 import com.tripsters.android.model.QuestionList;
 import com.tripsters.android.task.GetAllQuestionTask;
 import com.tripsters.sample.R;
-import com.tripsters.sample.TripstersApplication;
 import com.tripsters.sample.adapter.QuestionListAdapter;
 import com.tripsters.sample.util.Constants;
 import com.tripsters.sample.util.ErrorToast;
 import com.tripsters.sample.util.IntentUtils;
-import com.tripsters.sample.util.LoginUser;
 import com.tripsters.sample.view.TEmptyView.Type;
 import com.tripsters.sample.view.TListView;
 import com.tripsters.sample.view.TListView.ListUpdateListener;
@@ -81,7 +81,7 @@ public class QuestionListFragment extends BaseFragment {
     }
 
     protected void loadData(int page) {
-        new GetAllQuestionTask(TripstersApplication.mContext, LoginUser.getCountry().getCountryNameCn(),
+        new GetAllQuestionTask(TripstersApplication.mContext, SelectCountry.getInstance().getCountry().getCountryNameCn(),
                 page, Constants.PAGE_COUNT, new GetAllQuestionTask.GetAllQuestionTaskResult() {
             @Override
             public void onTaskResult(QuestionList result) {

@@ -9,13 +9,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.info.SelectCountry;
 import com.tripsters.android.model.Country;
 import com.tripsters.android.model.CountryList;
 import com.tripsters.android.task.GetSupportCountryTask;
 import com.tripsters.sample.adapter.CountryRecommandAdapter;
 import com.tripsters.sample.util.Constants;
 import com.tripsters.sample.util.ErrorToast;
-import com.tripsters.sample.util.LoginUser;
 import com.tripsters.sample.util.Utils;
 import com.tripsters.sample.view.TitleBar;
 import com.tripsters.sample.view.TitleBar.LeftType;
@@ -90,7 +91,7 @@ public class CountryRecommandActivity extends BaseActivity {
     }
 
     private void changeCountry(Country country) {
-        LoginUser.setCountry(this, country);
+        SelectCountry.getInstance().setCountry(country);
 
         Intent intent1 = new Intent().setClass(getApplicationContext(), MainActivity.class);
         intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

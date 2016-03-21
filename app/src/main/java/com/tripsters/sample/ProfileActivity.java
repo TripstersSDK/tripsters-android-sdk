@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
+import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.info.LoginUser;
 import com.tripsters.android.model.UserInfo;
 import com.tripsters.android.model.UserInfoResult;
 import com.tripsters.android.task.GetUserInfoTask;
 import com.tripsters.sample.util.Constants;
 import com.tripsters.sample.util.ErrorToast;
-import com.tripsters.sample.util.LoginUser;
 import com.tripsters.sample.view.ProfileHeaderView;
 import com.tripsters.sample.view.ProfileView;
 import com.tripsters.sample.view.ProfileView.UpdateListener;
@@ -46,8 +47,8 @@ public class ProfileActivity extends BaseActivity {
             finish();
             return;
         } else {
-            if (mUserInfo == null && mUid.equals(LoginUser.getId())) {
-                mUserInfo = LoginUser.getUser(this);
+            if (mUserInfo == null && mUid.equals(LoginUser.getInstance().getId())) {
+                mUserInfo = LoginUser.getInstance().getUser();
             }
         }
 

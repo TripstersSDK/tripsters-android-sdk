@@ -1,11 +1,14 @@
-package com.tripsters.sample.util;
+package com.tripsters.android.info;
 
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.tripsters.android.model.UserInfo;
-import com.tripsters.sample.TripstersApplication;
+import com.tripsters.android.TripstersApplication;
 
+/**
+ * 消息未读
+ */
 public class MessageUnread {
 
     private static final String MESSAGE_UNREAD_SP = "message_unread_sp";

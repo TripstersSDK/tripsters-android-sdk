@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.text.TextUtils;
 
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.model.NetResult;
 import com.tripsters.android.task.SendQuestionTask;
 import com.tripsters.sample.BaseActivity;
 import com.tripsters.sample.CityListActivity;
 import com.tripsters.sample.R;
 import com.tripsters.sample.SendActivity;
-import com.tripsters.sample.TripstersApplication;
 import com.tripsters.sample.composer.center.ComposerCenter;
 import com.tripsters.sample.util.CheckUtils;
 import com.tripsters.sample.util.Constants;

@@ -7,14 +7,14 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.tripsters.android.info.LoginUser;
+import com.tripsters.android.info.MessageUnread;
 import com.tripsters.android.model.AnswerList;
 import com.tripsters.android.task.GetUserAnsweredTask;
 import com.tripsters.sample.adapter.AnswerListAdapter;
 import com.tripsters.sample.util.Constants;
 import com.tripsters.sample.util.ErrorToast;
 import com.tripsters.sample.util.IntentUtils;
-import com.tripsters.sample.util.LoginUser;
-import com.tripsters.sample.util.MessageUnread;
 import com.tripsters.sample.view.TEmptyView.Type;
 import com.tripsters.sample.view.TListView;
 import com.tripsters.sample.view.TListView.ListUpdateListener;
@@ -65,7 +65,7 @@ public class ReceivedAnswerListActivity extends BaseActivity {
 
         mPullDownView.firstUpdate();
 
-        MessageUnread.getInstance(LoginUser.getUser(this)).clearAnswerNum();
+        MessageUnread.getInstance(LoginUser.getInstance().getUser()).clearAnswerNum();
     }
 
     @Override
@@ -76,7 +76,7 @@ public class ReceivedAnswerListActivity extends BaseActivity {
     }
 
     private void loadData(int page) {
-        mTask = new GetUserAnsweredTask(this, LoginUser.getId(), page, Constants.PAGE_COUNT,
+        mTask = new GetUserAnsweredTask(this, LoginUser.getInstance().getId(), page, Constants.PAGE_COUNT,
                 new GetUserAnsweredTask.GetUserAnsweredTaskResult() {
 
                     @Override

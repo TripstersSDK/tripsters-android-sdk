@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
 
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.model.MediaInfo;
 import com.tripsters.sample.adapter.GalleryAdapter;
 import com.tripsters.sample.adapter.GalleryAdapter.GalleryListener;

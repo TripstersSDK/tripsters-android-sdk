@@ -1,8 +1,8 @@
 package com.tripsters.sample.manager;
 
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.model.QuestionList;
 import com.tripsters.android.task.GetUserQuestionTask;
-import com.tripsters.sample.TripstersApplication;
 import com.tripsters.sample.adapter.QuestionListAdapter;
 import com.tripsters.sample.util.Constants;
 import com.tripsters.sample.util.ErrorToast;

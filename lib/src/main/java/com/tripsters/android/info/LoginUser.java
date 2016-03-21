@@ -1,24 +1,19 @@
-package com.tripsters.sample.util;
+package com.tripsters.android.info;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.tripsters.android.model.Country;
+import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.model.Gender;
 import com.tripsters.android.model.UserInfo;
-import com.tripsters.sample.TripstersApplication;
 
+/**
+ * 当前登陆用户
+ */
 public class LoginUser {
 
     private static final String USERINFO_SP = "userinfo_sp";
-
-    private static final String COUNTRY_SP = "country_sp";
-
-    private static final String PUSH_SP = "push_sp";
-
-    private static final String KEY_BLACK_TAG = "black_tag";
-    private static final String KEY_CHANNEL_ID = "channel_id";
 
     static class UserKey {
         public static final String KEY_ID = "id";
@@ -44,48 +39,46 @@ public class LoginUser {
         public static final String KEY_FROM = "user_from";
     }
 
-    static class CountryKey {
-        public static final String KEY_ID = "id";
-        public static final String KEY_COUNTRY_NAME_CN = "country_name_cn";
-        public static final String KEY_COUNTRY_NAME_EN = "country_name_en";
-        public static final String KEY_COUNTRY_NAME_LOCAL = "country_name_local";
-        public static final String KEY_COUNTRY_CODE = "country_code";
-        public static final String KEY_PIC = "pic";
-        public static final String KEY_HOT = "hot";
-    }
+    private static LoginUser mInstance;
 
-    private static UserInfo mLoginUser;
-    private static Country mChangeCountry;
+    private UserInfo mUserInfo;
 
     private LoginUser() {
-
     }
 
-    synchronized public static boolean isLogin(Context context) {
-        if (mLoginUser == null) {
-            mLoginUser = getUser(context);
+    public synchronized static LoginUser getInstance() {
+        if (mInstance == null) {
+            mInstance = new LoginUser();
         }
 
-        return mLoginUser != null;
+        return mInstance;
     }
 
-    synchronized public static boolean isLogin() {
+    public boolean isLogin(Context context) {
+        if (mUserInfo == null) {
+            mUserInfo = getUser(context);
+        }
+
+        return mUserInfo != null;
+    }
+
+    public boolean isLogin() {
         return isLogin(TripstersApplication.mContext);
     }
 
-    synchronized public static UserInfo getUser(Context context) {
-        if (mLoginUser == null) {
-            mLoginUser = getUserInfoFromSp(context);
+    public UserInfo getUser(Context context) {
+        if (mUserInfo == null) {
+            mUserInfo = getUserInfoFromSp(context);
         }
 
-        return mLoginUser;
+        return mUserInfo;
     }
 
-    synchronized public static UserInfo getUser() {
+    public UserInfo getUser() {
         return getUser(TripstersApplication.mContext);
     }
 
-    public static String getId(Context context) {
+    public String getId(Context context) {
         UserInfo userInfo = getUser(context);
 
         if (userInfo != null) {
@@ -95,83 +88,29 @@ public class LoginUser {
         return "";
     }
 
-    public static String getId() {
+    public String getId() {
         return getId(TripstersApplication.mContext);
     }
 
-    synchronized public static void setUser(Context context, final UserInfo userInfo) {
-        mLoginUser = userInfo;
+    public void setUser(Context context, final UserInfo userInfo) {
+        mUserInfo = userInfo;
 
         saveUserInfoToSp(context, userInfo);
     }
 
-    synchronized public static void setUser(final UserInfo userInfo) {
+    public void setUser(final UserInfo userInfo) {
         setUser(TripstersApplication.mContext, userInfo);
     }
 
-    synchronized public static void clearUser(Context context) {
-        mLoginUser = null;
+    public void clearUser(Context context) {
+        mUserInfo = null;
 
         SharedPreferences versionPrefs = getUserSp(context);
-        versionPrefs.edit().clear().commit();
+        versionPrefs.edit().clear().apply();
     }
 
-    synchronized public static void clearUserLogin() {
+    public void clearUser() {
         clearUser(TripstersApplication.mContext);
-    }
-
-    synchronized public static void setChannelId(Context context, String channelId) {
-        saveChannelIdToSp(context, channelId);
-    }
-
-    synchronized public static void setChannelId(String channelId) {
-        setChannelId(TripstersApplication.mContext, channelId);
-    }
-
-    synchronized public static String getChannelId(Context context) {
-        return getChannelIdFromSp(context);
-    }
-
-    synchronized public static String getChannelId() {
-        return getChannelIdFromSp(TripstersApplication.mContext);
-    }
-
-    synchronized public static void clearChannelId(Context context) {
-        setChannelId(context, "");
-    }
-
-    synchronized public static void clearChannelId() {
-        setChannelId(TripstersApplication.mContext, "");
-    }
-
-    synchronized public static boolean isBind(Context context) {
-        return TextUtils.isEmpty(getChannelIdFromSp(context));
-    }
-
-    synchronized public static boolean isBind() {
-        return isBind(TripstersApplication.mContext);
-    }
-
-    synchronized public static Country getCountry(Context context) {
-        if (mChangeCountry == null) {
-            mChangeCountry = getChangeCountryFromSp(context);
-        }
-
-        return mChangeCountry;
-    }
-
-    synchronized public static Country getCountry() {
-        return getCountry(TripstersApplication.mContext);
-    }
-
-    synchronized public static void setCountry(Context context, final Country country) {
-        mChangeCountry = country;
-
-        saveChangeCountryToSp(context, country);
-    }
-
-    synchronized public static void setCountry(final Country country) {
-        setCountry(TripstersApplication.mContext, country);
     }
 
     private static void saveUserInfoToSp(Context context, UserInfo userInfo) {
@@ -199,7 +138,6 @@ public class LoginUser {
             editorVersion.putString(UserKey.KEY_NATION, "");
             editorVersion.putString(UserKey.KEY_OCCUPATION, "");
             editorVersion.putString(UserKey.KEY_TRIP, "");
-            editorVersion.putInt(KEY_BLACK_TAG, 0);
 
             editorVersion.putString(UserKey.KEY_FROM, "");
         } else {
@@ -223,12 +161,11 @@ public class LoginUser {
             editorVersion.putString(UserKey.KEY_NATION, userInfo.getNation());
             editorVersion.putString(UserKey.KEY_OCCUPATION, userInfo.getOccupation());
             editorVersion.putString(UserKey.KEY_TRIP, userInfo.getTrip());
-            editorVersion.putInt(KEY_BLACK_TAG, userInfo.getBlackTag());
 
             editorVersion.putString(UserKey.KEY_FROM, userInfo.getAppid());
         }
 
-        editorVersion.commit();
+        editorVersion.apply();
     }
 
     private static UserInfo getUserInfoFromSp(Context context) {
@@ -255,7 +192,6 @@ public class LoginUser {
         userInfo.setNation(versionPrefs.getString(UserKey.KEY_NATION, ""));
         userInfo.setOccupation(versionPrefs.getString(UserKey.KEY_OCCUPATION, ""));
         userInfo.setTrip(versionPrefs.getString(UserKey.KEY_TRIP, ""));
-        userInfo.setBlackTag(versionPrefs.getInt(KEY_BLACK_TAG, 0));
 
         userInfo.setAppid(versionPrefs.getString(UserKey.KEY_FROM, ""));
 
@@ -266,79 +202,11 @@ public class LoginUser {
         return userInfo;
     }
 
-    private static void saveChangeCountryToSp(Context context, Country country) {
-        SharedPreferences sp = getCountrySp(context);
-        SharedPreferences.Editor editor = sp.edit();
-
-        if (country == null) {
-            editor.putInt(CountryKey.KEY_ID, 0);
-            editor.putString(CountryKey.KEY_COUNTRY_NAME_CN, "");
-            editor.putString(CountryKey.KEY_COUNTRY_NAME_EN, "");
-            editor.putString(CountryKey.KEY_COUNTRY_NAME_LOCAL, "");
-            editor.putString(CountryKey.KEY_COUNTRY_CODE, "");
-            editor.putString(CountryKey.KEY_PIC, "");
-            editor.putInt(CountryKey.KEY_HOT, 0);
-        } else {
-            editor.putInt(CountryKey.KEY_ID, country.getId());
-            editor.putString(CountryKey.KEY_COUNTRY_NAME_CN, country.getCountryNameCn());
-            editor.putString(CountryKey.KEY_COUNTRY_NAME_EN, country.getCountryNameEn());
-            editor.putString(CountryKey.KEY_COUNTRY_NAME_LOCAL, country.getCountryNameLocal());
-            editor.putString(CountryKey.KEY_COUNTRY_CODE, country.getCountryCode());
-            editor.putString(CountryKey.KEY_PIC, country.getPic());
-            editor.putInt(CountryKey.KEY_HOT, country.getHot());
-        }
-
-        editor.commit();
-    }
-
-    private static Country getChangeCountryFromSp(Context context) {
-        Country country = new Country();
-
-        SharedPreferences sp = getCountrySp(context);
-        country.setId(sp.getInt(CountryKey.KEY_ID, 0));
-        country.setCountryNameCn(sp.getString(CountryKey.KEY_COUNTRY_NAME_CN, ""));
-        country.setCountryNameEn(sp.getString(CountryKey.KEY_COUNTRY_NAME_EN, ""));
-        country.setCountryNameLocal(sp.getString(CountryKey.KEY_COUNTRY_NAME_LOCAL, ""));
-        country.setCountryCode(sp.getString(CountryKey.KEY_COUNTRY_CODE, ""));
-        country.setPic(sp.getString(CountryKey.KEY_PIC, ""));
-        country.setHot(sp.getInt(CountryKey.KEY_HOT, 0));
-
-        if (country.getId() == 0 && TextUtils.isEmpty(country.getCountryCode())) {
-            return null;
-        }
-
-        return country;
-    }
-
-    private static void saveChannelIdToSp(Context context, String channelId) {
-        getPushSp(context).edit().putString(KEY_CHANNEL_ID, channelId).commit();
-    }
-
-    private static String getChannelIdFromSp(Context context) {
-        return getPushSp(context).getString(KEY_CHANNEL_ID, "");
-    }
-
     private static SharedPreferences getUserSp(Context context) {
         if (context == null) {
             return TripstersApplication.mContext.getSharedPreferences(USERINFO_SP, 0);
         } else {
             return context.getSharedPreferences(USERINFO_SP, 0);
-        }
-    }
-
-    private static SharedPreferences getCountrySp(Context context) {
-        if (context == null) {
-            return TripstersApplication.mContext.getSharedPreferences(COUNTRY_SP, 0);
-        } else {
-            return context.getSharedPreferences(COUNTRY_SP, 0);
-        }
-    }
-
-    private static SharedPreferences getPushSp(Context context) {
-        if (context == null) {
-            return TripstersApplication.mContext.getSharedPreferences(PUSH_SP, 0);
-        } else {
-            return context.getSharedPreferences(PUSH_SP, 0);
         }
     }
 }

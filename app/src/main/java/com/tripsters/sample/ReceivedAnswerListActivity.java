@@ -65,7 +65,7 @@ public class ReceivedAnswerListActivity extends BaseActivity {
 
         mPullDownView.firstUpdate();
 
-        MessageUnread.getInstance(LoginUser.getInstance().getUser()).clearAnswerNum();
+        MessageUnread.getInstance().clearAnswerNum();
     }
 
     @Override

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.info.LoginUser;
 import com.tripsters.android.model.Blog;
 import com.tripsters.android.model.City;
@@ -327,11 +327,11 @@ public abstract class BaseComposer implements Parcelable, Comparable<BaseCompose
     }
 
     protected void saveDraft() {
-        ComposerCenter.getInstance().saveDraft(TripstersApplication.mContext, this);
+        ComposerCenter.getInstance().saveDraft(TripstersManager.mContext, this);
     }
 
     protected void removeDraft() {
-        ComposerCenter.getInstance().removeDraft(TripstersApplication.mContext, this);
+        ComposerCenter.getInstance().removeDraft(TripstersManager.mContext, this);
     }
 
     @SuppressWarnings("unchecked")

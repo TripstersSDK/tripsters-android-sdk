@@ -1,6 +1,6 @@
 package com.tripsters.sample.manager;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.QuestionList;
 import com.tripsters.android.task.GetUserQuestionTask;
 import com.tripsters.sample.adapter.QuestionListAdapter;
@@ -33,7 +33,7 @@ public class ProfileQuestionsManager {
 
     public void loadData(int page) {
         mTask =
-                new GetUserQuestionTask(TripstersApplication.mContext, mId, page, Constants.PAGE_COUNT,
+                new GetUserQuestionTask(TripstersManager.mContext, mId, page, Constants.PAGE_COUNT,
                         new GetUserQuestionTask.GetUserQuestionTaskResult() {
 
                             @Override

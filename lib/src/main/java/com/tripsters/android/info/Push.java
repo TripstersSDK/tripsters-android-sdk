@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 
 /**
  * Push信息
@@ -39,7 +39,7 @@ public class Push {
     }
 
     public void setChannelId(String channelId) {
-        setChannelId(TripstersApplication.mContext, channelId);
+        setChannelId(TripstersManager.mContext, channelId);
     }
 
     public String getChannelId(Context context) {
@@ -51,7 +51,7 @@ public class Push {
     }
 
     public String getChannelId() {
-        return getChannelId(TripstersApplication.mContext);
+        return getChannelId(TripstersManager.mContext);
     }
 
     public void clearChannelId(Context context) {
@@ -59,7 +59,7 @@ public class Push {
     }
 
     public void clearChannelId() {
-        clearChannelId(TripstersApplication.mContext);
+        clearChannelId(TripstersManager.mContext);
     }
 
     public boolean isBind(Context context) {
@@ -67,7 +67,7 @@ public class Push {
     }
 
     public boolean isBind() {
-        return isBind(TripstersApplication.mContext);
+        return isBind(TripstersManager.mContext);
     }
 
     private static void saveChannelIdToSp(Context context, String channelId) {
@@ -80,7 +80,7 @@ public class Push {
 
     private static SharedPreferences getPushSp(Context context) {
         if (context == null) {
-            return TripstersApplication.mContext.getSharedPreferences(PUSH_SP, 0);
+            return TripstersManager.mContext.getSharedPreferences(PUSH_SP, 0);
         } else {
             return context.getSharedPreferences(PUSH_SP, 0);
         }

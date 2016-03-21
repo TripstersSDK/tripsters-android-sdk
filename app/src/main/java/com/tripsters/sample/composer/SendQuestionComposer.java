@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.text.TextUtils;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.NetResult;
 import com.tripsters.android.task.SendQuestionTask;
 import com.tripsters.sample.BaseActivity;
@@ -36,7 +36,7 @@ public class SendQuestionComposer extends BaseComposer {
         if (TextUtils.isEmpty(text)) {
             List<BaseComposer> composers =
                     ComposerCenter.getInstance()
-                            .getDrafts(TripstersApplication.mContext, type, uid);
+                            .getDrafts(TripstersManager.mContext, type, uid);
 
             if (!composers.isEmpty()) {
                 content = composers.get(0).getContent();
@@ -108,7 +108,7 @@ public class SendQuestionComposer extends BaseComposer {
             ((BaseActivity) context).showProgress();
         }
 
-        new SendQuestionTask(TripstersApplication.mContext, uid, getSendContent(context),
+        new SendQuestionTask(TripstersManager.mContext, uid, getSendContent(context),
                 getPicPath(), country.getCountryNameCn(), getCitiesString(cities), lat, lng, address,
                 new SendQuestionTask.SendQuestionTaskResult() {
 
@@ -120,7 +120,7 @@ public class SendQuestionComposer extends BaseComposer {
                         }
 
                         if (ErrorToast.getInstance().checkNetResult(result)) {
-                            IntentUtils.sendQuestionBroadcast(TripstersApplication.mContext, uid);
+                            IntentUtils.sendQuestionBroadcast(TripstersManager.mContext, uid);
 
                             removeDraft();
 

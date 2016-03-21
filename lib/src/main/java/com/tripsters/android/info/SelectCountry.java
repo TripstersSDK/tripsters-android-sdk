@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.Country;
 
 /**
@@ -48,7 +48,7 @@ public class SelectCountry {
     }
 
     public Country getCountry() {
-        return getCountry(TripstersApplication.mContext);
+        return getCountry(TripstersManager.mContext);
     }
 
     public void setCountry(Context context, final Country country) {
@@ -58,12 +58,23 @@ public class SelectCountry {
     }
 
     public void setCountry(final Country country) {
-        setCountry(TripstersApplication.mContext, country);
+        setCountry(TripstersManager.mContext, country);
+    }
+
+    public void clearCountry(Context context) {
+        mCountry = null;
+
+        SharedPreferences sharedPreferences = getCountrySp(context);
+        sharedPreferences.edit().clear().apply();
+    }
+
+    public void clearCountry() {
+        clearCountry(TripstersManager.mContext);
     }
 
     private static void saveChangeCountryToSp(Context context, Country country) {
-        SharedPreferences sp = getCountrySp(context);
-        SharedPreferences.Editor editor = sp.edit();
+        SharedPreferences sharedPreferences = getCountrySp(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if (country == null) {
             editor.putInt(CountryKey.KEY_ID, 0);
@@ -89,14 +100,14 @@ public class SelectCountry {
     private static Country getChangeCountryFromSp(Context context) {
         Country country = new Country();
 
-        SharedPreferences sp = getCountrySp(context);
-        country.setId(sp.getInt(CountryKey.KEY_ID, 0));
-        country.setCountryNameCn(sp.getString(CountryKey.KEY_COUNTRY_NAME_CN, ""));
-        country.setCountryNameEn(sp.getString(CountryKey.KEY_COUNTRY_NAME_EN, ""));
-        country.setCountryNameLocal(sp.getString(CountryKey.KEY_COUNTRY_NAME_LOCAL, ""));
-        country.setCountryCode(sp.getString(CountryKey.KEY_COUNTRY_CODE, ""));
-        country.setPic(sp.getString(CountryKey.KEY_PIC, ""));
-        country.setHot(sp.getInt(CountryKey.KEY_HOT, 0));
+        SharedPreferences sharedPreferences = getCountrySp(context);
+        country.setId(sharedPreferences.getInt(CountryKey.KEY_ID, 0));
+        country.setCountryNameCn(sharedPreferences.getString(CountryKey.KEY_COUNTRY_NAME_CN, ""));
+        country.setCountryNameEn(sharedPreferences.getString(CountryKey.KEY_COUNTRY_NAME_EN, ""));
+        country.setCountryNameLocal(sharedPreferences.getString(CountryKey.KEY_COUNTRY_NAME_LOCAL, ""));
+        country.setCountryCode(sharedPreferences.getString(CountryKey.KEY_COUNTRY_CODE, ""));
+        country.setPic(sharedPreferences.getString(CountryKey.KEY_PIC, ""));
+        country.setHot(sharedPreferences.getInt(CountryKey.KEY_HOT, 0));
 
         if (country.getId() == 0 && TextUtils.isEmpty(country.getCountryCode())) {
             return null;
@@ -107,7 +118,7 @@ public class SelectCountry {
 
     private static SharedPreferences getCountrySp(Context context) {
         if (context == null) {
-            return TripstersApplication.mContext.getSharedPreferences(COUNTRY_SP, 0);
+            return TripstersManager.mContext.getSharedPreferences(COUNTRY_SP, 0);
         } else {
             return context.getSharedPreferences(COUNTRY_SP, 0);
         }

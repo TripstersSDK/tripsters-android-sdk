@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.info.LoginUser;
 import com.tripsters.android.model.UserInfo;
 import com.tripsters.android.model.UserInfoResult;
@@ -88,7 +88,7 @@ public class ProfileActivity extends BaseActivity {
             mTaskRunning = true;
 
             mUserInfoTask =
-                    new GetUserInfoTask(TripstersApplication.mContext, mUid,
+                    new GetUserInfoTask(TripstersManager.mContext, mUid,
                             new GetUserInfoTask.GetUserInfoTaskResult() {
 
                                 @Override

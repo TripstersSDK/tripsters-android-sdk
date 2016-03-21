@@ -2,7 +2,6 @@ package com.tripsters.sample.util;
 
 import android.text.TextUtils;
 
-import com.tripsters.android.TripstersApplication;
 import com.tripsters.sample.R;
 
 public class CheckUtils {
@@ -21,10 +20,8 @@ public class CheckUtils {
         }
 
         if (questionTitle.length() > Constants.Edit.MAX_QUESTION_TITLE_SIZE) {
-            String prompt =
-                    TripstersApplication.mContext.getString(R.string.question_title_input_invalid,
-                            Constants.Edit.MAX_QUESTION_TITLE_SIZE);
-            ErrorToast.getInstance().showErrorMessage(prompt);
+            ErrorToast.getInstance().showErrorMessage(R.string.question_title_input_invalid,
+                    Constants.Edit.MAX_QUESTION_TITLE_SIZE);
             return false;
         }
 

@@ -3,8 +3,7 @@ package com.tripsters.android.info;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.tripsters.android.model.UserInfo;
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 
 /**
  * 消息未读
@@ -23,8 +22,9 @@ public class MessageUnread {
     private MessageUnread() {
     }
 
-    public synchronized static MessageUnread getInstance(UserInfo userInfo) {
-        String uid = userInfo == null ? "" : userInfo.getId();
+    public synchronized static MessageUnread getInstance() {
+        String uid = LoginUser.getInstance().getUser() == null ?
+                "" : LoginUser.getInstance().getUser().getId();
 
         if (sInstance == null) {
             sInstance = new MessageUnread();
@@ -48,13 +48,13 @@ public class MessageUnread {
     private void init(String uid) {
         mUid = uid;
 
-        SharedPreferences sp =
-                TripstersApplication.mContext.getSharedPreferences(MESSAGE_UNREAD_SP, 0);
+        SharedPreferences sharedPreferences =
+                TripstersManager.mContext.getSharedPreferences(MESSAGE_UNREAD_SP, 0);
 
         if (TextUtils.isEmpty(uid)) {
             mAnswerNum = 0;
         } else {
-            mAnswerNum = sp.getInt(mUid + KEY_ANSWER_TAG, 0);
+            mAnswerNum = sharedPreferences.getInt(mUid + KEY_ANSWER_TAG, 0);
         }
     }
 
@@ -81,7 +81,11 @@ public class MessageUnread {
     }
 
     private void saveAnswerNum() {
-        TripstersApplication.mContext.getSharedPreferences(MESSAGE_UNREAD_SP, 0).edit()
+        TripstersManager.mContext.getSharedPreferences(MESSAGE_UNREAD_SP, 0).edit()
                 .putInt(mUid + KEY_ANSWER_TAG, mAnswerNum).commit();
+    }
+
+    public void clearUnread() {
+        clearAnswerNum();
     }
 }

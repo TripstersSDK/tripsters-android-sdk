@@ -81,6 +81,17 @@ public class IntentUtils {
     }
 
     /**
+     * 未读数更新广播
+     *
+     * @param context
+     */
+    public static void sendUnreadChangedBroadcast(Context context) {
+        Intent intent = new Intent();
+        intent.setAction(Constants.Action.MESSAGE_UNREAD_CHANGED);
+        context.sendBroadcast(intent);
+    }
+
+    /**
      * 发送登陆成功广播
      *
      * @param context

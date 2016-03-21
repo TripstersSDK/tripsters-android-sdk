@@ -1,22 +1,19 @@
-package com.tripsters.sample;
+package com.tripsters.android;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.baidu.android.pushservice.PushMessageReceiver;
-import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.info.LoginUser;
 import com.tripsters.android.info.MessageUnread;
 import com.tripsters.android.info.Push;
 import com.tripsters.android.model.ModelFactory;
 import com.tripsters.android.model.NetResult;
+import com.tripsters.android.model.PushMessage;
 import com.tripsters.android.task.UpdateUserInfoTask;
 import com.tripsters.android.util.LogUtils;
-import com.tripsters.sample.model.PushMessage;
-import com.tripsters.sample.util.Constants;
 
 import java.util.List;
 
@@ -49,9 +46,26 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
      */
     public static final String TAG = "PushMessage";
 
+    /**
+     * 通知回调
+     */
+    public interface PushMessageListener {
+        /**
+         * 消息到达
+         */
+        void onPushAnswerArrived();
+
+        /**
+         * 消息点击
+         */
+        void onPushAnswerClicked();
+    }
+
     // 在百度开发者中心查询应用的API Key
 //    public static String API_KEY = "WEFAU1ylCuDROaM1tEwQpVR8"; // 测试API_KEY
-    public static String API_KEY = "24vSLtrLzoCxm3LXbwNA1vYL";
+    private static String API_KEY = "24vSLtrLzoCxm3LXbwNA1vYL";
+
+    private static PushMessageListener sPushMessageListener;
 
     /**
      * 调用PushManager.startWork后，sdk将对push
@@ -232,8 +246,10 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
      *
      * @param context 上下文
      */
-    public static void start(Context context) {
+    static void start(Context context, PushMessageListener listener) {
         LogUtils.logd(TAG, "startWork");
+        sPushMessageListener = listener;
+
         PushManager.startWork(context, PushConstants.LOGIN_TYPE_API_KEY, API_KEY);
     }
 
@@ -242,7 +258,7 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
      *
      * @param context 上下文
      */
-    public static void stop(Context context) {
+    static void stop(Context context) {
         LogUtils.logd(TAG, "stopWork");
         PushManager.stopWork(context);
     }
@@ -253,9 +269,9 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
      * @param uid       用户的uid
      * @param channelId 用户的channelId
      */
-    public static void updateUserInfo(final String uid, final String channelId) {
+    static void updateUserInfo(final String uid, final String channelId) {
         if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(channelId)) {
-            new UpdateUserInfoTask(TripstersApplication.mContext, uid, channelId,
+            new UpdateUserInfoTask(TripstersManager.mContext, uid, channelId,
                     new UpdateUserInfoTask.UpdateUserInfoTaskResult() {
                         @Override
                         public void onTaskResult(NetResult result) {
@@ -273,34 +289,22 @@ public class TripstersPushMessageReceiver extends PushMessageReceiver {
             case RECEIVED_ANSWER:
                 if (LoginUser.getInstance().isLogin()) {
                     if (arrived) {
-                        MessageUnread.getInstance(LoginUser.getInstance().getUser()).addAnswerNum();
+                        MessageUnread.getInstance().addAnswerNum();
+
+                        if (sPushMessageListener != null) {
+                            sPushMessageListener.onPushAnswerArrived();
+                        }
                     } else {
-                        MessageUnread.getInstance(LoginUser.getInstance().getUser()).reduceAnswerNum();
+                        MessageUnread.getInstance().reduceAnswerNum();
 
-                        onReceivedQuestionClicked(context);
+                        if (sPushMessageListener != null) {
+                            sPushMessageListener.onPushAnswerClicked();
+                        }
                     }
-
-                    sendUnreadChangedBroadcast();
                 }
                 break;
             default:
                 break;
         }
-    }
-
-    protected void onReceivedQuestionClicked(Context context) {
-        Intent intent =
-                new Intent(context.getApplicationContext(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        intent.putExtra(Constants.Extra.NOTICE_TYPE,
-                MainActivity.NOTICE_RECEIVED_ANSWER);
-        context.getApplicationContext().startActivity(intent);
-    }
-
-    private void sendUnreadChangedBroadcast() {
-        Intent intent = new Intent();
-        intent.setAction(Constants.Action.MESSAGE_UNREAD_CHANGED);
-        TripstersApplication.mContext.sendBroadcast(intent);
     }
 }

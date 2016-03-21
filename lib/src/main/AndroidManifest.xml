@@ -11,7 +11,7 @@
         <!-- 趣皮士平台上的APP ID -->
         <meta-data
             android:name="tripsters_appid"
-            android:value="jieda" />
+            android:value="test" />
     </application>
 
 </manifest>

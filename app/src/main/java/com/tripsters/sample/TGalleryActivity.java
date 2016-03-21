@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.MediaInfo;
 import com.tripsters.sample.adapter.GalleryAdapter;
 import com.tripsters.sample.adapter.GalleryAdapter.GalleryListener;
@@ -143,7 +143,7 @@ public class TGalleryActivity extends BaseActivity {
 
             @Override
             protected List<MediaInfo> doInBackground(Void... params) {
-                return GalleryHelper.getAllMedia(TripstersApplication.mContext);
+                return GalleryHelper.getAllMedia(TripstersManager.mContext);
             }
 
             @Override

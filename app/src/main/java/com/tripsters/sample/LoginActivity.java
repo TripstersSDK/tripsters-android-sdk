@@ -5,9 +5,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.info.LoginUser;
-import com.tripsters.android.info.Push;
 import com.tripsters.android.model.UserInfoResult;
 import com.tripsters.android.task.LoginTask;
 import com.tripsters.android.task.LoginTask.LoginTaskResult;
@@ -64,7 +63,7 @@ public class LoginActivity extends BaseActivity {
                 && CheckUtils.checkLoginAvatarValid(avatar)) {
             showProgress(R.string.login_now);
 
-            new LoginTask(TripstersApplication.mContext, appuid, nickname, avatar, gender, location,
+            new LoginTask(TripstersManager.mContext, appuid, nickname, avatar, gender, location,
                     new LoginTaskResult() {
                         @Override
                         public void onTaskResult(UserInfoResult result) {
@@ -73,13 +72,11 @@ public class LoginActivity extends BaseActivity {
                             if (ErrorToast.getInstance().checkNetResult(result)) {
                                 LoginUser.getInstance().setUser(result.getUserInfo());
 
-                                IntentUtils.sendLoginBroadcast(TripstersApplication.mContext,
+                                IntentUtils.sendLoginBroadcast(TripstersManager.mContext,
                                         LoginUser.getInstance().getId());
 
-                                if (Push.getInstance().isBind()) {
-                                    TripstersPushMessageReceiver.updateUserInfo(LoginUser.getInstance().getId(),
-                                            Push.getInstance().getChannelId());
-                                }
+                                // 如果注册push功能，用户登陆成功后需更新push信息
+                                TripstersManager.updateUserInfo();
 
                                 finish();
                             }

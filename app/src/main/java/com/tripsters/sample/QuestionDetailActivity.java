@@ -12,7 +12,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.LinearLayout;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.AnswerList;
 import com.tripsters.android.model.Question;
 import com.tripsters.android.model.QuestionResult;
@@ -147,7 +147,7 @@ public class QuestionDetailActivity extends BaseActivity {
 
     private void loadData(final int page) {
         if (page == 1) {
-            new GetQuestionDetailTask(TripstersApplication.mContext, mQuestionId, new GetQuestionDetailTask.GetQuestionDetailTaskResult() {
+            new GetQuestionDetailTask(TripstersManager.mContext, mQuestionId, new GetQuestionDetailTask.GetQuestionDetailTaskResult() {
                 @Override
                 public void onTaskResult(QuestionResult result) {
                     if (ErrorToast.getInstance().checkNetResult(result)) {
@@ -164,7 +164,7 @@ public class QuestionDetailActivity extends BaseActivity {
     }
 
     private void loadAnswers(int page) {
-        new GetAnswerTask(TripstersApplication.mContext, mQuestionId, page, Constants.PAGE_COUNT,
+        new GetAnswerTask(TripstersManager.mContext, mQuestionId, page, Constants.PAGE_COUNT,
                 new GetAnswerTask.GetAnswerTaskResult() {
                     @Override
                     public void onTaskResult(AnswerList result) {

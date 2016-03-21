@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.info.SelectCountry;
 import com.tripsters.android.model.QuestionList;
 import com.tripsters.android.task.GetAllQuestionTask;
@@ -81,7 +81,7 @@ public class QuestionListFragment extends BaseFragment {
     }
 
     protected void loadData(int page) {
-        new GetAllQuestionTask(TripstersApplication.mContext, SelectCountry.getInstance().getCountry().getCountryNameCn(),
+        new GetAllQuestionTask(TripstersManager.mContext, SelectCountry.getInstance().getCountry().getCountryNameCn(),
                 page, Constants.PAGE_COUNT, new GetAllQuestionTask.GetAllQuestionTaskResult() {
             @Override
             public void onTaskResult(QuestionList result) {

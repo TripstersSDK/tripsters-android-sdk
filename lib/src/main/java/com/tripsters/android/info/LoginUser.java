@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.Gender;
 import com.tripsters.android.model.UserInfo;
 
@@ -36,7 +36,7 @@ public class LoginUser {
         public static final String KEY_NATION = "nation";
         public static final String KEY_OCCUPATION = "occupation";
         public static final String KEY_TRIP = "trip";
-        public static final String KEY_FROM = "user_from";
+        public static final String KEY_APPID = "appid";
     }
 
     private static LoginUser mInstance;
@@ -63,7 +63,7 @@ public class LoginUser {
     }
 
     public boolean isLogin() {
-        return isLogin(TripstersApplication.mContext);
+        return isLogin(TripstersManager.mContext);
     }
 
     public UserInfo getUser(Context context) {
@@ -75,7 +75,7 @@ public class LoginUser {
     }
 
     public UserInfo getUser() {
-        return getUser(TripstersApplication.mContext);
+        return getUser(TripstersManager.mContext);
     }
 
     public String getId(Context context) {
@@ -89,7 +89,7 @@ public class LoginUser {
     }
 
     public String getId() {
-        return getId(TripstersApplication.mContext);
+        return getId(TripstersManager.mContext);
     }
 
     public void setUser(Context context, final UserInfo userInfo) {
@@ -99,101 +99,101 @@ public class LoginUser {
     }
 
     public void setUser(final UserInfo userInfo) {
-        setUser(TripstersApplication.mContext, userInfo);
+        setUser(TripstersManager.mContext, userInfo);
     }
 
     public void clearUser(Context context) {
         mUserInfo = null;
 
-        SharedPreferences versionPrefs = getUserSp(context);
-        versionPrefs.edit().clear().apply();
+        SharedPreferences sharedPreferences = getUserSp(context);
+        sharedPreferences.edit().clear().apply();
     }
 
     public void clearUser() {
-        clearUser(TripstersApplication.mContext);
+        clearUser(TripstersManager.mContext);
     }
 
     private static void saveUserInfoToSp(Context context, UserInfo userInfo) {
-        SharedPreferences versionPrefs = getUserSp(context);
-        SharedPreferences.Editor editorVersion = versionPrefs.edit();
+        SharedPreferences sharedPreferences = getUserSp(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if (userInfo == null) {
-            editorVersion.putString(UserKey.KEY_ID, "");
-            editorVersion.putString(UserKey.KEY_GENDER, "");
-            editorVersion.putString(UserKey.KEY_NICKNAME, "");
-            editorVersion.putString(UserKey.KEY_AVATAR, "");
-            editorVersion.putInt(UserKey.KEY_IDENTITY, 0);
-            editorVersion.putInt(UserKey.KEY_FOLLOWERS_COUNT, 0);
-            editorVersion.putInt(UserKey.KEY_FRIENDS_COUNT, 0);
-            editorVersion.putInt(UserKey.KEY_FANS, 0);
-            editorVersion.putString(UserKey.KEY_LOCATION, "");
-            editorVersion.putString(UserKey.KEY_DESCRIPTION, "");
-            editorVersion.putString(UserKey.KEY_COUNTRY, "");
-            editorVersion.putString(UserKey.KEY_PHONE, "");
-            editorVersion.putInt(UserKey.KEY_IDLE, 0);
-            editorVersion.putString(UserKey.KEY_SHOW_IPADDR, "");
-            editorVersion.putInt(UserKey.KEY_POINTS, 0);
-            editorVersion.putInt(UserKey.KEY_GOLD, 0);
-            editorVersion.putInt(UserKey.KEY_GROWTH, 0);
-            editorVersion.putString(UserKey.KEY_NATION, "");
-            editorVersion.putString(UserKey.KEY_OCCUPATION, "");
-            editorVersion.putString(UserKey.KEY_TRIP, "");
+            editor.putString(UserKey.KEY_ID, "");
+            editor.putString(UserKey.KEY_GENDER, "");
+            editor.putString(UserKey.KEY_NICKNAME, "");
+            editor.putString(UserKey.KEY_AVATAR, "");
+            editor.putInt(UserKey.KEY_IDENTITY, 0);
+            editor.putInt(UserKey.KEY_FOLLOWERS_COUNT, 0);
+            editor.putInt(UserKey.KEY_FRIENDS_COUNT, 0);
+            editor.putInt(UserKey.KEY_FANS, 0);
+            editor.putString(UserKey.KEY_LOCATION, "");
+            editor.putString(UserKey.KEY_DESCRIPTION, "");
+            editor.putString(UserKey.KEY_COUNTRY, "");
+            editor.putString(UserKey.KEY_PHONE, "");
+            editor.putInt(UserKey.KEY_IDLE, 0);
+            editor.putString(UserKey.KEY_SHOW_IPADDR, "");
+            editor.putInt(UserKey.KEY_POINTS, 0);
+            editor.putInt(UserKey.KEY_GOLD, 0);
+            editor.putInt(UserKey.KEY_GROWTH, 0);
+            editor.putString(UserKey.KEY_NATION, "");
+            editor.putString(UserKey.KEY_OCCUPATION, "");
+            editor.putString(UserKey.KEY_TRIP, "");
 
-            editorVersion.putString(UserKey.KEY_FROM, "");
+            editor.putString(UserKey.KEY_APPID, "");
         } else {
-            editorVersion.putString(UserKey.KEY_ID, userInfo.getId());
-            editorVersion.putString(UserKey.KEY_GENDER, userInfo.getGender().getValue());
-            editorVersion.putString(UserKey.KEY_NICKNAME, userInfo.getNickname());
-            editorVersion.putString(UserKey.KEY_AVATAR, userInfo.getAvatar());
-            editorVersion.putInt(UserKey.KEY_IDENTITY, userInfo.getIdentity());
-            editorVersion.putInt(UserKey.KEY_FOLLOWERS_COUNT, userInfo.getFollowersCount());
-            editorVersion.putInt(UserKey.KEY_FRIENDS_COUNT, userInfo.getFriendsCount());
-            editorVersion.putInt(UserKey.KEY_FANS, userInfo.getFans());
-            editorVersion.putString(UserKey.KEY_LOCATION, userInfo.getLocation());
-            editorVersion.putString(UserKey.KEY_DESCRIPTION, userInfo.getDescription());
-            editorVersion.putString(UserKey.KEY_COUNTRY, userInfo.getCountry());
-            editorVersion.putString(UserKey.KEY_PHONE, userInfo.getPhone());
-            editorVersion.putInt(UserKey.KEY_IDLE, userInfo.getIdle());
-            editorVersion.putString(UserKey.KEY_SHOW_IPADDR, userInfo.getShowIpaddr());
-            editorVersion.putInt(UserKey.KEY_POINTS, userInfo.getPoints());
-            editorVersion.putInt(UserKey.KEY_GOLD, userInfo.getGold());
-            editorVersion.putInt(UserKey.KEY_GROWTH, userInfo.getGrowth());
-            editorVersion.putString(UserKey.KEY_NATION, userInfo.getNation());
-            editorVersion.putString(UserKey.KEY_OCCUPATION, userInfo.getOccupation());
-            editorVersion.putString(UserKey.KEY_TRIP, userInfo.getTrip());
+            editor.putString(UserKey.KEY_ID, userInfo.getId());
+            editor.putString(UserKey.KEY_GENDER, userInfo.getGender().getValue());
+            editor.putString(UserKey.KEY_NICKNAME, userInfo.getNickname());
+            editor.putString(UserKey.KEY_AVATAR, userInfo.getAvatar());
+            editor.putInt(UserKey.KEY_IDENTITY, userInfo.getIdentity());
+            editor.putInt(UserKey.KEY_FOLLOWERS_COUNT, userInfo.getFollowersCount());
+            editor.putInt(UserKey.KEY_FRIENDS_COUNT, userInfo.getFriendsCount());
+            editor.putInt(UserKey.KEY_FANS, userInfo.getFans());
+            editor.putString(UserKey.KEY_LOCATION, userInfo.getLocation());
+            editor.putString(UserKey.KEY_DESCRIPTION, userInfo.getDescription());
+            editor.putString(UserKey.KEY_COUNTRY, userInfo.getCountry());
+            editor.putString(UserKey.KEY_PHONE, userInfo.getPhone());
+            editor.putInt(UserKey.KEY_IDLE, userInfo.getIdle());
+            editor.putString(UserKey.KEY_SHOW_IPADDR, userInfo.getShowIpaddr());
+            editor.putInt(UserKey.KEY_POINTS, userInfo.getPoints());
+            editor.putInt(UserKey.KEY_GOLD, userInfo.getGold());
+            editor.putInt(UserKey.KEY_GROWTH, userInfo.getGrowth());
+            editor.putString(UserKey.KEY_NATION, userInfo.getNation());
+            editor.putString(UserKey.KEY_OCCUPATION, userInfo.getOccupation());
+            editor.putString(UserKey.KEY_TRIP, userInfo.getTrip());
 
-            editorVersion.putString(UserKey.KEY_FROM, userInfo.getAppid());
+            editor.putString(UserKey.KEY_APPID, userInfo.getAppid());
         }
 
-        editorVersion.apply();
+        editor.apply();
     }
 
     private static UserInfo getUserInfoFromSp(Context context) {
-        SharedPreferences versionPrefs = getUserSp(context);
+        SharedPreferences sharedPreferences = getUserSp(context);
 
         UserInfo userInfo = new UserInfo();
-        userInfo.setId(versionPrefs.getString(UserKey.KEY_ID, ""));
-        userInfo.setGender(Gender.getFromValue(versionPrefs.getString(UserKey.KEY_GENDER, "")));
-        userInfo.setNickname(versionPrefs.getString(UserKey.KEY_NICKNAME, ""));
-        userInfo.setAvatar(versionPrefs.getString(UserKey.KEY_AVATAR, ""));
-        userInfo.setIdentity(versionPrefs.getInt(UserKey.KEY_IDENTITY, 0));
-        userInfo.setFollowersCount(versionPrefs.getInt(UserKey.KEY_FOLLOWERS_COUNT, 0));
-        userInfo.setFriendsCount(versionPrefs.getInt(UserKey.KEY_FRIENDS_COUNT, 0));
-        userInfo.setFans(versionPrefs.getInt(UserKey.KEY_FANS, 0));
-        userInfo.setLocation(versionPrefs.getString(UserKey.KEY_LOCATION, ""));
-        userInfo.setDescription(versionPrefs.getString(UserKey.KEY_DESCRIPTION, ""));
-        userInfo.setCountry(versionPrefs.getString(UserKey.KEY_COUNTRY, ""));
-        userInfo.setPhone(versionPrefs.getString(UserKey.KEY_PHONE, ""));
-        userInfo.setIdle(versionPrefs.getInt(UserKey.KEY_IDLE, 0));
-        userInfo.setShowIpaddr(versionPrefs.getString(UserKey.KEY_SHOW_IPADDR, ""));
-        userInfo.setPoints(versionPrefs.getInt(UserKey.KEY_POINTS, 0));
-        userInfo.setGold(versionPrefs.getInt(UserKey.KEY_GOLD, 0));
-        userInfo.setGrowth(versionPrefs.getInt(UserKey.KEY_GROWTH, 0));
-        userInfo.setNation(versionPrefs.getString(UserKey.KEY_NATION, ""));
-        userInfo.setOccupation(versionPrefs.getString(UserKey.KEY_OCCUPATION, ""));
-        userInfo.setTrip(versionPrefs.getString(UserKey.KEY_TRIP, ""));
+        userInfo.setId(sharedPreferences.getString(UserKey.KEY_ID, ""));
+        userInfo.setGender(Gender.getFromValue(sharedPreferences.getString(UserKey.KEY_GENDER, "")));
+        userInfo.setNickname(sharedPreferences.getString(UserKey.KEY_NICKNAME, ""));
+        userInfo.setAvatar(sharedPreferences.getString(UserKey.KEY_AVATAR, ""));
+        userInfo.setIdentity(sharedPreferences.getInt(UserKey.KEY_IDENTITY, 0));
+        userInfo.setFollowersCount(sharedPreferences.getInt(UserKey.KEY_FOLLOWERS_COUNT, 0));
+        userInfo.setFriendsCount(sharedPreferences.getInt(UserKey.KEY_FRIENDS_COUNT, 0));
+        userInfo.setFans(sharedPreferences.getInt(UserKey.KEY_FANS, 0));
+        userInfo.setLocation(sharedPreferences.getString(UserKey.KEY_LOCATION, ""));
+        userInfo.setDescription(sharedPreferences.getString(UserKey.KEY_DESCRIPTION, ""));
+        userInfo.setCountry(sharedPreferences.getString(UserKey.KEY_COUNTRY, ""));
+        userInfo.setPhone(sharedPreferences.getString(UserKey.KEY_PHONE, ""));
+        userInfo.setIdle(sharedPreferences.getInt(UserKey.KEY_IDLE, 0));
+        userInfo.setShowIpaddr(sharedPreferences.getString(UserKey.KEY_SHOW_IPADDR, ""));
+        userInfo.setPoints(sharedPreferences.getInt(UserKey.KEY_POINTS, 0));
+        userInfo.setGold(sharedPreferences.getInt(UserKey.KEY_GOLD, 0));
+        userInfo.setGrowth(sharedPreferences.getInt(UserKey.KEY_GROWTH, 0));
+        userInfo.setNation(sharedPreferences.getString(UserKey.KEY_NATION, ""));
+        userInfo.setOccupation(sharedPreferences.getString(UserKey.KEY_OCCUPATION, ""));
+        userInfo.setTrip(sharedPreferences.getString(UserKey.KEY_TRIP, ""));
 
-        userInfo.setAppid(versionPrefs.getString(UserKey.KEY_FROM, ""));
+        userInfo.setAppid(sharedPreferences.getString(UserKey.KEY_APPID, ""));
 
         if (TextUtils.isEmpty(userInfo.getId())) {
             return null;
@@ -204,7 +204,7 @@ public class LoginUser {
 
     private static SharedPreferences getUserSp(Context context) {
         if (context == null) {
-            return TripstersApplication.mContext.getSharedPreferences(USERINFO_SP, 0);
+            return TripstersManager.mContext.getSharedPreferences(USERINFO_SP, 0);
         } else {
             return context.getSharedPreferences(USERINFO_SP, 0);
         }

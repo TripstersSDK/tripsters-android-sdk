@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.City;
 import com.tripsters.android.model.CityList;
 import com.tripsters.android.model.Country;
@@ -69,7 +69,7 @@ public class CityListActivity extends BaseActivity implements OnIndexChangeListe
             mCountry = mComposer.getCountry();
             cities = mComposer.getCities();
         }
-        mAddCities = Utils.initPinyin(TripstersApplication.mContext, cities);
+        mAddCities = Utils.initPinyin(TripstersManager.mContext, cities);
 
         if (mCountry == null) {
             finish();
@@ -209,14 +209,14 @@ public class CityListActivity extends BaseActivity implements OnIndexChangeListe
 
         showProgress();
 
-        new GetSupportCityTask(TripstersApplication.mContext,
+        new GetSupportCityTask(TripstersManager.mContext,
                 mCountry.getCountryCode(), new GetSupportCityTask.GetSupportCityTaskResult() {
             @Override
             public void onTaskResult(CityList result) {
                 dismissProgress();
 
                 if (ErrorToast.getInstance().checkNetResult(result)) {
-                    mCities = Utils.initPinyin(TripstersApplication.mContext, result.getList());
+                    mCities = Utils.initPinyin(TripstersManager.mContext, result.getList());
 
                     notifyData();
                 }

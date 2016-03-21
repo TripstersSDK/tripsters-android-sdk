@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.info.SelectCountry;
 import com.tripsters.android.model.Country;
 import com.tripsters.android.model.CountryList;
@@ -114,7 +114,7 @@ public class CountryRecommandActivity extends BaseActivity {
     private void getData() {
         showProgress();
 
-        new GetSupportCountryTask(TripstersApplication.mContext,
+        new GetSupportCountryTask(TripstersManager.mContext,
                 new GetSupportCountryTask.GetSupportCountryTaskResult() {
             @Override
             public void onTaskResult(CountryList result) {

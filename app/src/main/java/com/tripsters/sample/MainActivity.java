@@ -3,7 +3,6 @@ package com.tripsters.sample;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.tripsters.android.TripstersApplication;
 import com.tripsters.android.info.SelectCountry;
 import com.tripsters.sample.util.Constants;
 import com.tripsters.sample.util.Utils;
@@ -16,8 +15,6 @@ public class MainActivity extends BaseFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        TripstersPushMessageReceiver.start(TripstersApplication.mContext);
 
         if (SelectCountry.getInstance().getCountry() == null) {
             SelectCountry.getInstance().setCountry(Utils.getThailaid());

@@ -5,7 +5,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.ListNetResult;
 import com.tripsters.android.model.NetResult;
 import com.tripsters.android.model.UserInfoResult;
@@ -23,7 +23,8 @@ public class ErrorToast {
 
     private boolean mErroMessage;
 
-    private ErrorToast() {}
+    private ErrorToast() {
+    }
 
     public static ErrorToast getInstance() {
         if (sInstance == null) {
@@ -41,8 +42,8 @@ public class ErrorToast {
         if (!mErroMessage) {
             mErroMessage = true;
 
-            Toast.makeText(TripstersApplication.mContext,
-                    TripstersApplication.mContext.getString(R.string.connect_failuer_toast),
+            Toast.makeText(TripstersManager.mContext,
+                    TripstersManager.mContext.getString(R.string.connect_failuer_toast),
                     Toast.LENGTH_SHORT).show();
 
             // 5s后提示
@@ -58,19 +59,25 @@ public class ErrorToast {
 
     public void showErrorMessage(String errorMessage) {
         if (!TextUtils.isEmpty(errorMessage)) {
-            Toast.makeText(TripstersApplication.mContext, errorMessage, Toast.LENGTH_SHORT).show();
+            Toast.makeText(TripstersManager.mContext, errorMessage, Toast.LENGTH_SHORT).show();
         }
     }
 
     public void showErrorMessage(int errorMessageResId) {
-        Toast.makeText(TripstersApplication.mContext,
-                TripstersApplication.mContext.getString(errorMessageResId), Toast.LENGTH_SHORT)
+        Toast.makeText(TripstersManager.mContext,
+                TripstersManager.mContext.getString(errorMessageResId), Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    public void showErrorMessage(int errorMessageResId, Object... formatArgs) {
+        Toast.makeText(TripstersManager.mContext,
+                TripstersManager.mContext.getString(errorMessageResId, formatArgs), Toast.LENGTH_SHORT)
                 .show();
     }
 
     /**
      * 对网络数据返回进行测试
-     * 
+     *
      * @param result
      * @return true：返回成功 false：返回失败
      */
@@ -92,7 +99,7 @@ public class ErrorToast {
 
     /**
      * 对网络数据返回进行测试
-     * 
+     *
      * @param result
      * @return true：返回成功 false：返回失败
      */
@@ -114,7 +121,7 @@ public class ErrorToast {
 
     /**
      * 对网络数据返回进行测试
-     * 
+     *
      * @param view
      * @param result
      * @return true：返回成功 false：返回失败

@@ -3,7 +3,7 @@ package com.tripsters.sample.composer;
 import android.content.Context;
 import android.content.Intent;
 
-import com.tripsters.android.TripstersApplication;
+import com.tripsters.android.TripstersManager;
 import com.tripsters.android.model.Answer;
 import com.tripsters.android.model.NetResult;
 import com.tripsters.android.model.Question;
@@ -105,7 +105,7 @@ public class SendReAnswerComposer extends BaseComposer {
             ((BaseActivity) context).showProgress();
         }
 
-        new SendReAnswerTask(TripstersApplication.mContext, uid, getSendContent(context),
+        new SendReAnswerTask(TripstersManager.mContext, uid, getSendContent(context),
                 getPicPath(), mAnswer.getQuestion().getId(), mAnswer.getUserInfo().getId(),
                 new SendReAnswerTask.SendReAnswerTaskResult() {
 
@@ -117,7 +117,7 @@ public class SendReAnswerComposer extends BaseComposer {
                         }
 
                         if (ErrorToast.getInstance().checkNetResult(result)) {
-                            IntentUtils.sendAnswerBroadcast(TripstersApplication.mContext, uid, mAnswer
+                            IntentUtils.sendAnswerBroadcast(TripstersManager.mContext, uid, mAnswer
                                     .getQuestion().getId());
 
                             removeDraft();

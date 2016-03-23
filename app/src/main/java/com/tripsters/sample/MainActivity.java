@@ -18,6 +18,10 @@ public class MainActivity extends BaseFragmentActivity {
 
         if (SelectCountry.getInstance().getCountry() == null) {
             SelectCountry.getInstance().setCountry(Utils.getThailaid());
+
+            Intent intent = new Intent();
+            intent.setAction(Constants.Action.CHANGE_LOCATION);
+            sendBroadcast(intent);
         }
 
         if (getIntent().hasExtra(Constants.Extra.NOTICE_TYPE)) {

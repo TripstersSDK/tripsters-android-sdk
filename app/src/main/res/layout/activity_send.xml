@@ -81,7 +81,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/tv_consume_points"
                 android:layout_marginRight="@dimen/tb_margin"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/tb_light_grey"

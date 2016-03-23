@@ -69,6 +69,7 @@ public class LoginActivity extends BaseActivity {
                         public void onTaskResult(UserInfoResult result) {
                             dismissProgress();
 
+                            // 用户登录成功
                             if (ErrorToast.getInstance().checkNetResult(result)) {
                                 LoginUser.getInstance().setUser(result.getUserInfo());
 

@@ -18,11 +18,13 @@ public class TripstersSampleApplication extends Application {
         TripstersManager.init(this, new TripstersPushMessageReceiver.PushMessageListener() {
             @Override
             public void onPushAnswerArrived() {
+                // 问题回复消息到达的处理
                 IntentUtils.sendUnreadChangedBroadcast(TripstersSampleApplication.this);
             }
 
             @Override
             public void onPushAnswerClicked() {
+                // 问题回复消息点击的处理
                 onReceivedAnswerClicked(TripstersSampleApplication.this);
 
                 IntentUtils.sendUnreadChangedBroadcast(TripstersSampleApplication.this);

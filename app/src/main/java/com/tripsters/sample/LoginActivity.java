@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity {
                                         LoginUser.getInstance().getId());
 
                                 // 如果注册push功能，用户登陆成功后需更新push信息
-                                TripstersManager.updateUserInfo();
+                                TripstersManager.updateUserInfo(result.getUserInfo());
 
                                 finish();
                             }

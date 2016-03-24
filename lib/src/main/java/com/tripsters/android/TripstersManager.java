@@ -2,11 +2,13 @@ package com.tripsters.android;
 
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.tripsters.android.info.LoginUser;
 import com.tripsters.android.info.MessageUnread;
 import com.tripsters.android.info.Push;
 import com.tripsters.android.info.SelectCountry;
+import com.tripsters.android.model.UserInfo;
 
 public class TripstersManager {
 
@@ -50,11 +52,15 @@ public class TripstersManager {
 
     /**
      * 更新push信息(在用户登陆成功后调用)
+     *
+     * @param userInfo 用户资料
      */
-    public static void updateUserInfo() {
-        if (Push.getInstance().isBind()) {
-            TripstersPushMessageReceiver.updateUserInfo(LoginUser.getInstance().getId(),
-                    Push.getInstance().getChannelId());
+    public static void updateUserInfo(UserInfo userInfo) {
+        if (userInfo != null && !TextUtils.isEmpty(userInfo.getId())) {
+            if (Push.getInstance().isBind()) {
+                TripstersPushMessageReceiver.updateUserInfo(userInfo.getId(),
+                        Push.getInstance().getChannelId());
+            }
         }
     }
 }
